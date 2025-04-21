@@ -17,9 +17,11 @@ local theme = lush(function(injected_functions)
 
     -- UI
     Cursor         { bg = yellow },
+    CursorLine     { bg = bg.li(10).de(10) },
+    Visual         { bg = bg.li(20).de(20) },
     Normal         { fg = fg, bg = bg },
     NormalFloat    { bg = bg.da(40).de(10) },
-    FloatBorder    { fg = bg.li(60).de(70), bg = NormalFloat.bg },
+    FloatBorder    { fg = fg.da(30).de(30), bg = NormalFloat.bg },
     FloatTitle     { fg = FloatBorder.fg.li(30), bg = NormalFloat.bg, bold = true },
     StatusLine     { bg = fg.da(10), fg = bg },
     StatusLineNC   { bg = StatusLine.bg.da(20), fg = bg },
@@ -50,6 +52,9 @@ local theme = lush(function(injected_functions)
     Comment        { fg = blue.da(20) },
 
     sym"@variable" { fg = fg },
+
+    -- Plugins
+    CopilotSuggestion { fg = bg.li(50).de(50) },
 
     -- stylua: ignore end
   }
