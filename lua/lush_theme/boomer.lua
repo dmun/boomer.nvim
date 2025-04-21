@@ -35,6 +35,9 @@ local theme = lush(function(injected_functions)
     Title { fg = red, bold = true },
     DiagnosticInfo { fg = blue.li(20).de(20) },
 
+    diffAdded      { bg = green.da(50).de(50) },
+    diffRemoved    { bg = red.da(50).de(50) },
+
     -- Syntax
     Delimiter      { fg = fg.de(40) },
     Punctuation    { fg = fg },
@@ -46,7 +49,7 @@ local theme = lush(function(injected_functions)
     String         { fg = green },
     Identifier     { fg = fg },
     Function       { fg = fg },
-    Statement      { fg = fg },
+    Statement      { fg = orange.li(30).de(30) },
     Type           { fg = orange },
     Directory      { fg = blue },
     Comment        { fg = blue.da(20) },
