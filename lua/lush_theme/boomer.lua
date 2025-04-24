@@ -4,8 +4,8 @@ local hsluv = lush.hsluv
 local fg = hsluv(60, 30, 82)
 local bg = hsluv(180, 80, 7)
 local yellow = hsluv(65, 80, 85)
-local orange = hsluv(30, 100, 75)
-local green = hsluv(120, 85, 80)
+local orange = hsluv(20, 100, 75)
+local green = hsluv(110, 80, 85)
 local blue = hsluv(240, 90, 70)
 local red = hsluv(0, 90, 60)
 
@@ -18,16 +18,19 @@ local theme = lush(function(injected_functions)
     Cursor         { bg = yellow },
     CursorLine     { bg = bg.li(5).de(10) },
     LineNr         { fg = bg.li(15).de(20) },
-    CursorLineNr   { fg = yellow.da(10).sa(10), bg = bg.li(5).de(10) },
-    CursorLineSign { bg = bg.li(5).de(10) },
+    CursorLineNr   {
+      fg = yellow.da(10).sa(10),
+      -- bg = bg.li(5).de(10),
+    },
+    -- CursorLineSign { bg = bg.li(5).de(10) },
     Visual         { bg = bg.li(20).de(20) },
     Normal         { fg = fg, bg = bg },
-    NormalFloat    {},-- bg = bg.da(40).de(10) },
+    NormalFloat    {}, -- bg = bg.da(40).de(10) },
     FloatBorder    { fg = fg.da(30).de(30), bg = NormalFloat.bg },
     FloatTitle     { fg = FloatBorder.fg.li(30), bg = NormalFloat.bg, bold = true },
-    StatusLine     { bg = fg.da(10), fg = bg },
+    StatusLine     { bg = fg.da(30), fg = bg },
     StatusLineNC   { bg = StatusLine.bg.da(20), fg = bg },
-    Tabline        { bg = StatusLine.bg.da(20) },
+    Tabline        { fg = bg, bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg, bold = true },
     WinSeparator   { fg = bg.li(60).de(80) },
     Pmenu          { bg = bg.li(20).de(40) },
@@ -47,7 +50,7 @@ local theme = lush(function(injected_functions)
     Delimiter      { fg = fg.de(40) },
     Punctuation    { fg = fg },
     Operator       { fg = fg },
-    Keyword        { fg = bg.ro(-45).li(80).de(70) },
+    Keyword        { fg = orange },
     Special        { fg = fg },
     Constant       { fg = yellow },
     Number         { fg = yellow },
@@ -55,7 +58,7 @@ local theme = lush(function(injected_functions)
     Identifier     { fg = fg },
     Function       { fg = blue.li(20).de(30) },
     Statement      { fg = orange.li(30).de(30) },
-    Type           { fg = orange },
+    Type           { fg = fg },
     Directory      { fg = blue },
     Comment        { fg = blue.da(30).sa(30) },
 
@@ -65,7 +68,7 @@ local theme = lush(function(injected_functions)
     sym"@type"              { Type },
     sym"@type.builtin"      { Keyword },
     sym"@function"          { Function },
-    sym"@function.builtin"  { Keyword },
+    sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
 
     -- Plugins
     CopilotSuggestion { fg = bg.li(50).de(50) },
