@@ -1,12 +1,12 @@
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local fg = hsluv(60, 30, 85)
-local bg = hsluv(140, 40, 5)
-local yellow = hsluv(65, 100, 80)
-local orange = hsluv(30, 100, 60)
-local green = hsluv(120, 90, 70)
-local blue = hsluv(239, 90, 70)
+local fg = hsluv(60, 30, 82)
+local bg = hsluv(180, 80, 7)
+local yellow = hsluv(65, 80, 85)
+local orange = hsluv(30, 100, 75)
+local green = hsluv(120, 85, 80)
+local blue = hsluv(240, 90, 70)
 local red = hsluv(0, 90, 60)
 
 ---@diagnostic disable: undefined-global
@@ -15,12 +15,14 @@ local theme = lush(function(injected_functions)
   return {
     -- stylua: ignore start
 
-    -- UI
     Cursor         { bg = yellow },
-    CursorLine     { bg = bg.li(10).de(10) },
+    CursorLine     { bg = bg.li(5).de(10) },
+    LineNr         { fg = bg.li(15).de(20) },
+    CursorLineNr   { fg = yellow.da(10).sa(10), bg = bg.li(5).de(10) },
+    CursorLineSign { bg = bg.li(5).de(10) },
     Visual         { bg = bg.li(20).de(20) },
     Normal         { fg = fg, bg = bg },
-    NormalFloat    { bg = bg.da(40).de(10) },
+    NormalFloat    {},-- bg = bg.da(40).de(10) },
     FloatBorder    { fg = fg.da(30).de(30), bg = NormalFloat.bg },
     FloatTitle     { fg = FloatBorder.fg.li(30), bg = NormalFloat.bg, bold = true },
     StatusLine     { bg = fg.da(10), fg = bg },
@@ -28,13 +30,16 @@ local theme = lush(function(injected_functions)
     Tabline        { bg = StatusLine.bg.da(20) },
     TablineSel     { bg = bg, fg = fg, bold = true },
     WinSeparator   { fg = bg.li(60).de(80) },
-    Pmenu          { bg = bg.li(20).de(10) },
-    PmenuSel       { fg = bg, bg = yellow },
+    Pmenu          { bg = bg.li(20).de(40) },
+    PmenuSel       { bg = yellow.da(60).sa(60) },
+    PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
+    PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
     QuickFixLine   { PmenuSel },
-
-    Title { fg = red, bold = true },
+    Title          { fg = red, bold = true },
     DiagnosticInfo { fg = blue.li(20).de(20) },
+    DiagnosticUnnecessary { fg = fg.da(40).de(40) },
 
+    -- Git
     diffAdded      { bg = green.da(50).de(50) },
     diffRemoved    { bg = red.da(50).de(50) },
 
@@ -42,22 +47,37 @@ local theme = lush(function(injected_functions)
     Delimiter      { fg = fg.de(40) },
     Punctuation    { fg = fg },
     Operator       { fg = fg },
-    Keyword        { fg = orange },
+    Keyword        { fg = bg.ro(-45).li(80).de(70) },
     Special        { fg = fg },
     Constant       { fg = yellow },
-    Number         { fg = green },
+    Number         { fg = yellow },
     String         { fg = green },
     Identifier     { fg = fg },
-    Function       { fg = fg },
+    Function       { fg = blue.li(20).de(30) },
     Statement      { fg = orange.li(30).de(30) },
     Type           { fg = orange },
     Directory      { fg = blue },
-    Comment        { fg = blue.da(20) },
+    Comment        { fg = blue.da(30).sa(30) },
 
     sym"@variable" { fg = fg },
+    sym"@lsp.type.modifier" { fg = red },
+    sym"@keyword.modifier"  { fg = red },
+    sym"@type"              { Type },
+    sym"@type.builtin"      { Keyword },
+    sym"@function"          { Function },
+    sym"@function.builtin"  { Keyword },
 
     -- Plugins
     CopilotSuggestion { fg = bg.li(50).de(50) },
+
+    BlinkCmpSignatureHelp       { Pmenu },
+    BlinkCmpSignatureHelpBorder { Pmenu },
+
+    TreesitterContext { CursorLine },
+
+    IlluminatedWordRead  { bg = CursorLine.bg.li(5).de(5)},
+    IlluminatedWordText  { bg = CursorLine.bg.li(5).de(5)},
+    IlluminatedWordWrite { bg = CursorLine.bg.li(5).de(5)},
 
     -- stylua: ignore end
   }
