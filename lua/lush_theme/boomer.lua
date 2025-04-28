@@ -2,13 +2,13 @@ local lush = require("lush")
 local hsluv = lush.hsluv
 
 local fg = hsluv(60, 30, 75)
-local bg = hsluv(185, 80, 13)
+local bg = hsluv(185, 80, 12)
 local white = fg.li(60)
 local yellow = hsluv(65, 100, 75)
 local orange = hsluv(20, 100, 55)
 local green = hsluv(110, 100, 70)
 local blue = hsluv(240, 90, 70)
-local red = hsluv(0, 90, 60)
+local red = hsluv(10, 90, 60)
 
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
@@ -26,11 +26,11 @@ local theme = lush(function(injected_functions)
     -- CursorLineSign { bg = bg.li(5).de(10) },
     Visual         { bg = bg.li(20).de(20) },
     Normal         { fg = fg, bg = bg },
-    NormalFloat    {}, -- bg = bg.da(40).de(10) },
+    NormalFloat    { bg = bg.da(40).de(10) },
     FloatBorder    { fg = fg.da(30).de(30), bg = NormalFloat.bg },
     FloatTitle     { fg = FloatBorder.fg.li(30), bg = NormalFloat.bg, bold = true },
-    StatusLine     { bg = fg.da(30), fg = bg },
-    StatusLineNC   { bg = StatusLine.bg.da(20), fg = bg },
+    StatusLine     { bg = bg.da(40).de(10), fg = fg },
+    StatusLineNC   { bg = bg.da(20), fg = fg.da(20).de(20) },
     Tabline        { fg = bg, bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg, bold = true },
     WinSeparator   { FloatBorder },
@@ -46,6 +46,9 @@ local theme = lush(function(injected_functions)
     -- Git
     diffAdded      { bg = green.da(50).de(50) },
     diffRemoved    { bg = red.da(50).de(50) },
+    Added          { fg = green },
+    Changed        { fg = yellow },
+    Removed        { fg = red },
 
     -- Syntax
     Delimiter      { fg = fg.de(40) },
@@ -62,7 +65,7 @@ local theme = lush(function(injected_functions)
     Statement      { Keyword },
     Type           { fg = fg },
     Directory      { fg = blue },
-    Comment        { fg = blue.da(30).sa(30) },
+    Comment        { fg = blue.da(20).sa(20) },
 
     sym"@variable" { fg = fg },
     sym"@lsp.type.modifier" { fg = red },
