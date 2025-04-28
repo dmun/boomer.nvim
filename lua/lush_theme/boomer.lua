@@ -1,11 +1,12 @@
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local fg = hsluv(60, 30, 82)
-local bg = hsluv(180, 80, 7)
-local yellow = hsluv(65, 80, 85)
-local orange = hsluv(20, 100, 75)
-local green = hsluv(110, 80, 85)
+local fg = hsluv(60, 30, 75)
+local bg = hsluv(185, 80, 13)
+local white = fg.li(60)
+local yellow = hsluv(65, 100, 75)
+local orange = hsluv(20, 100, 55)
+local green = hsluv(110, 100, 70)
 local blue = hsluv(240, 90, 70)
 local red = hsluv(0, 90, 60)
 
@@ -15,7 +16,7 @@ local theme = lush(function(injected_functions)
   return {
     -- stylua: ignore start
 
-    Cursor         { bg = yellow },
+    Cursor         { bg = white },
     CursorLine     { bg = bg.li(5).de(10) },
     LineNr         { fg = bg.li(15).de(20) },
     CursorLineNr   {
@@ -32,7 +33,7 @@ local theme = lush(function(injected_functions)
     StatusLineNC   { bg = StatusLine.bg.da(20), fg = bg },
     Tabline        { fg = bg, bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg, bold = true },
-    WinSeparator   { fg = bg.li(60).de(80) },
+    WinSeparator   { FloatBorder },
     Pmenu          { bg = bg.li(20).de(40) },
     PmenuSel       { bg = yellow.da(60).sa(60) },
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
@@ -50,14 +51,15 @@ local theme = lush(function(injected_functions)
     Delimiter      { fg = fg.de(40) },
     Punctuation    { fg = fg },
     Operator       { fg = fg },
-    Keyword        { fg = orange },
+    Keyword        { fg = white },
     Special        { fg = fg },
     Constant       { fg = yellow },
     Number         { fg = yellow },
+    PreProc        { Constant },
     String         { fg = green },
     Identifier     { fg = fg },
-    Function       { fg = blue.li(20).de(30) },
-    Statement      { fg = orange.li(30).de(30) },
+    Function       { fg = fg },
+    Statement      { Keyword },
     Type           { fg = fg },
     Directory      { fg = blue },
     Comment        { fg = blue.da(30).sa(30) },
@@ -68,7 +70,7 @@ local theme = lush(function(injected_functions)
     sym"@type"              { Type },
     sym"@type.builtin"      { Keyword },
     sym"@function"          { Function },
-    sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
+    -- sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
 
     -- Plugins
     CopilotSuggestion { fg = bg.li(50).de(50) },
