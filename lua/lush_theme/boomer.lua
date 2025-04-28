@@ -1,13 +1,15 @@
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local fg = hsluv(60, 30, 75)
-local bg = hsluv(185, 80, 12)
+local bg = hsluv(210, 35, 12)
+local fg = hsluv(210, 35, 95)
 local white = fg.li(60)
-local yellow = hsluv(65, 100, 75)
+local yellow = hsluv(65, 70, 85)
 local orange = hsluv(20, 100, 55)
-local green = hsluv(110, 100, 70)
-local blue = hsluv(240, 90, 70)
+local purple = hsluv(300, 40, 65)
+local cyan = hsluv(160, 70, 75)
+local green = hsluv(100, 80, 75)
+local blue = hsluv(240, 80, 65)
 local red = hsluv(10, 90, 60)
 
 ---@diagnostic disable: undefined-global
@@ -15,6 +17,14 @@ local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
     -- stylua: ignore start
+    WhiteFg        { fg = white },
+    YellowFg       { fg = yellow },
+    OrangeFg       { fg = orange },
+    PurpleFg       { fg = purple },
+    CyanFg         { fg = cyan },
+    GreenFg        { fg = green },
+    BlueFg         { fg = blue },
+    RedFg          { fg = red },
 
     Cursor         { bg = white },
     CursorLine     { bg = bg.li(5).de(10) },
@@ -54,18 +64,18 @@ local theme = lush(function(injected_functions)
     Delimiter      { fg = fg.de(40) },
     Punctuation    { fg = fg },
     Operator       { fg = fg },
-    Keyword        { fg = white },
+    Keyword        { fg = yellow, bold = true },
     Special        { fg = fg },
-    Constant       { fg = yellow },
-    Number         { fg = yellow },
+    Constant       { fg = purple },
+    Number         { Constant },
     PreProc        { Constant },
     String         { fg = green },
     Identifier     { fg = fg },
     Function       { fg = fg },
     Statement      { Keyword },
-    Type           { fg = fg },
+    Type           { fg = green, bold = true },
     Directory      { fg = blue },
-    Comment        { fg = blue.da(20).sa(20) },
+    Comment        { fg = cyan, bold = true },
 
     sym"@variable" { fg = fg },
     sym"@lsp.type.modifier" { fg = red },
@@ -73,6 +83,7 @@ local theme = lush(function(injected_functions)
     sym"@type"              { Type },
     sym"@type.builtin"      { Keyword },
     sym"@function"          { Function },
+    sym"@character"         { fg = red },
     -- sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
 
     -- Plugins
