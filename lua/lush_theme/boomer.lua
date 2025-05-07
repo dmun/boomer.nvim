@@ -6,10 +6,10 @@ local fg = hsluv(220, 20, 99)
 local white = fg.li(80)
 local yellow = hsluv(65, 90, 88)
 local orange = hsluv(40, 90, 75)
-local purple = hsluv(300, 50, 75)
+local purple = hsluv(330, 50, 75)
 local cyan = hsluv(160, 70, 75)
 local green = hsluv(100, 80, 85)
-local blue = hsluv(240, 90, 75)
+local blue = hsluv(240, 90, 80)
 local red = hsluv(10, 90, 60)
 
 ---@diagnostic disable: undefined-global
@@ -41,8 +41,8 @@ local theme = lush(function(injected_functions)
     Tabline        { fg = bg, bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
     WinSeparator   { FloatBorder },
-    Pmenu          { bg = bg.li(20).de(40) },
-    PmenuSel       { bg = blue.da(60).sa(60) },
+    Pmenu          { bg = bg.da(30).de(30) },
+    PmenuSel       { bg = bg.li(20).sa(20) },
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
     PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
     QuickFixLine   { PmenuSel },
@@ -76,8 +76,9 @@ local theme = lush(function(injected_functions)
     Function       { fg = blue },
     Statement      { Keyword },
     Type           { fg = yellow },
+    Tag            { Keyword },
     Directory      { fg = blue },
-    Comment        { fg = cyan },
+    Comment        { fg = fg.da(40) },
 
     sym"@variable" { fg = fg },
     sym"@lsp.type.modifier" { fg = red },
