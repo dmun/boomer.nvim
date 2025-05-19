@@ -1,16 +1,42 @@
+local light = false
+
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg = hsluv(240, 30, 16)
+local bg = hsluv(240, 50, 5)
 local fg = hsluv(220, 20, 99)
 local white = fg.li(80)
-local yellow = hsluv(65, 90, 88)
-local orange = hsluv(40, 90, 75)
-local purple = hsluv(330, 50, 75)
-local cyan = hsluv(160, 70, 75)
-local green = hsluv(100, 80, 85)
+local yellow = hsluv(65, 85, 85)
+local orange = hsluv(40, 95, 75)
+local purple = hsluv(330, 70, 80)
+local cyan = hsluv(150, 90, 90)
+local green = hsluv(100, 90, 90)
 local blue = hsluv(240, 90, 80)
-local red = hsluv(10, 90, 60)
+local red = hsluv(10, 90, 65)
+
+local bg_light = hsluv(240, 30, 100)
+local fg_light = hsluv(220, 20, 0)
+local white_light = fg.da(80)
+local yellow_light = hsluv(65, 90, 58)
+local orange_light = hsluv(40, 90, 45)
+local purple_light = hsluv(330, 50, 45)
+local cyan_light = hsluv(160, 70, 45)
+local green_light = hsluv(100, 80, 45)
+local blue_light = hsluv(240, 90, 40)
+local red_light = hsluv(10, 90, 40)
+
+if light then
+  bg = bg_light
+  fg = fg_light
+  white = white_light
+  yellow = yellow_light
+  orange = orange_light
+  purple = purple_light
+  cyan = cyan_light
+  green = green_light
+  blue = blue_light
+  red = red_light
+end
 
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
@@ -26,17 +52,18 @@ local theme = lush(function(injected_functions)
     BlueFg         { fg = blue },
     RedFg          { fg = red },
 
-    Cursor         { bg = white.da(20).de(20) },
+    Cursor         { bg = white.da(10).de(10) },
     CursorLine     { bg = bg.li(5).de(10) },
-    LineNr         { fg = bg.li(15).de(20) },
+    LineNr         { fg = bg.li(20).de(20) },
     CursorLineNr   { fg = Cursor.bg },
+    NonText        { fg = bg.li(10).de(10) },
     -- CursorLineSign { bg = bg.li(5).de(10) },
     Visual         { bg = bg.li(20).de(20) },
     Normal         { fg = fg, bg = bg },
     NormalFloat    { bg = bg.da(40).de(10) },
     FloatBorder    { fg = fg.da(30).de(30), bg = NormalFloat.bg },
     FloatTitle     { fg = FloatBorder.fg.li(30), bg = NormalFloat.bg },
-    StatusLine     { bg = bg.da(40).de(10), fg = fg },
+    StatusLine     { bg = bg.da(40).de(10), fg = fg.da(20).de(20) },
     StatusLineNC   { StatusLine },
     Tabline        { fg = fg.da(30).de(30), bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
@@ -66,9 +93,9 @@ local theme = lush(function(injected_functions)
     Removed        { fg = red },
 
     -- Syntax
-    Delimiter      { fg = fg.da(20).de(80) },
+    Delimiter      { fg = fg.da(10).de(80) },
     Punctuation    { fg = fg },
-    Keyword        { fg = purple },
+    Keyword        { fg = orange },
     Operator       { Keyword },
     Special        { fg = white },
     Constant       { fg = yellow },
@@ -79,13 +106,14 @@ local theme = lush(function(injected_functions)
     Function       { fg = blue },
     Statement      { Keyword },
     Type           { fg = yellow },
-    Tag            { Keyword },
+    Tag            { fg = cyan },
     Directory      { fg = blue },
     Comment        { fg = fg.da(40) },
 
-    sym"@variable" { fg = fg },
+    sym"@variable"          { fg = fg },
     sym"@lsp.type.modifier" { fg = red },
     sym"@keyword.modifier"  { fg = red },
+    sym"@none"              { Delimiter },
     sym"@type"              { Type },
     sym"@constructor"       { Type },
     sym"@constructor.lua"   { Delimiter },
@@ -93,11 +121,17 @@ local theme = lush(function(injected_functions)
     sym"@function"          { Function },
     sym"@function.builtin"  { Keyword },
     sym"@character"         { fg = red },
-    sym"@tag"               { Keyword },
-    sym"@tag.builtin"       { Keyword },
+    sym"@tag"               { Tag },
+    sym"@tag.builtin"       { Tag },
+    sym"@tag.attribute"     { Delimiter },
     sym"@tag.delimiter"     { Delimiter },
-    sym"@markup.heading.markdown"    { fg = red },
+    sym"@markup.heading"    {},
+    sym"@markup.heading.markdown"  { fg = red },
     -- sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
+
+    -- sym"@keyword.coroutine.svelte"   { fg = red },
+    -- sym"@keyword.conditional.svelte" { fg = red },
+    -- sym"@keyword.repeat.svelte"      { fg = red },
 
     -- Plugins
     CopilotSuggestion { fg = bg.li(50).de(50) },
