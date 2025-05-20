@@ -3,15 +3,15 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg = hsluv(240, 50, 5)
+local bg = hsluv(240, 50, 4)
 local fg = hsluv(220, 20, 99)
 local white = fg.li(80)
-local yellow = hsluv(65, 85, 85)
-local orange = hsluv(40, 95, 75)
-local purple = hsluv(330, 70, 80)
-local cyan = hsluv(150, 90, 90)
-local green = hsluv(100, 90, 90)
-local blue = hsluv(240, 90, 80)
+local yellow = hsluv(65, 80, 85)
+local orange = hsluv(50, 80, 75)
+local purple = hsluv(270, 90, 75)
+local cyan = hsluv(140, 80, 90)
+local green = hsluv(110, 70, 90)
+local blue = hsluv(230, 90, 80)
 local red = hsluv(10, 90, 65)
 
 local bg_light = hsluv(240, 30, 100)
@@ -51,6 +51,14 @@ local theme = lush(function(injected_functions)
     GreenFg        { fg = green },
     BlueFg         { fg = blue },
     RedFg          { fg = red },
+
+    RainbowDelimiterYellow       { fg = yellow.da(10).sa(60) },
+    RainbowDelimiterOrange       { fg = orange.da(10).sa(60) },
+    RainbowDelimiterViolet       { fg = purple.da(10).sa(60) },
+    RainbowDelimiterCyan         { fg = cyan.da(10).sa(60) },
+    RainbowDelimiterGreen        { fg = green.da(10).sa(60) },
+    RainbowDelimiterBlue         { fg = blue.da(10).sa(60) },
+    RainbowDelimiterRed          { fg = red.da(10).sa(60) },
 
     Cursor         { bg = white.da(10).de(10) },
     CursorLine     { bg = bg.li(5).de(10) },
@@ -93,24 +101,25 @@ local theme = lush(function(injected_functions)
     Removed        { fg = red },
 
     -- Syntax
-    Delimiter      { fg = fg.da(10).de(80) },
+    Delimiter      { fg = fg.da(0).de(20) },
     Punctuation    { fg = fg },
-    Keyword        { fg = orange },
-    Operator       { Keyword },
+    Keyword        { fg = red },
+    Operator       { Normal },
     Special        { fg = white },
     Constant       { fg = yellow },
     Number         { Constant },
     PreProc        { Constant },
-    String         { fg = green },
+    String         { fg = blue.li(30) },
     Identifier     { fg = fg },
     Function       { fg = blue },
     Statement      { Keyword },
-    Type           { fg = yellow },
+    Type           { fg = orange },
     Tag            { fg = cyan },
     Directory      { fg = blue },
     Comment        { fg = fg.da(40) },
 
     sym"@variable"          { fg = fg },
+    sym"@variable.member"   { fg = fg },
     sym"@lsp.type.modifier" { fg = red },
     sym"@keyword.modifier"  { fg = red },
     sym"@none"              { Delimiter },
@@ -119,7 +128,7 @@ local theme = lush(function(injected_functions)
     sym"@constructor.lua"   { Delimiter },
     sym"@type.builtin"      { Keyword },
     sym"@function"          { Function },
-    sym"@function.builtin"  { Keyword },
+    sym"@function.builtin"  { Function },
     sym"@character"         { fg = red },
     sym"@tag"               { Tag },
     sym"@tag.builtin"       { Tag },
