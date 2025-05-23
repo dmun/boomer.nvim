@@ -156,9 +156,8 @@ local theme = lush(function(injected_functions)
 
     TreesitterContext { CursorLine },
 
-    IlluminatedWordRead  { bg = CursorLine.bg.li(5).de(5)},
-    IlluminatedWordText  { bg = CursorLine.bg.li(5).de(5)},
-    IlluminatedWordWrite { bg = CursorLine.bg.li(5).de(5)},
+    MiniCursorWord        { bg = CursorLine.bg },
+    MiniCursorWordCurrent { bg = CursorLine.bg.li(5).de(5) },
 
     fugitiveHunk { fg = fg.da(30) },
 
