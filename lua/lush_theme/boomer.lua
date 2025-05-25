@@ -42,7 +42,6 @@ end
 local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
-    -- stylua: ignore start
     WhiteFg        { fg = white },
     YellowFg       { fg = yellow },
     OrangeFg       { fg = orange },
@@ -60,7 +59,7 @@ local theme = lush(function(injected_functions)
     RainbowDelimiterBlue         { fg = blue.da(10).sa(60) },
     RainbowDelimiterRed          { fg = red.da(10).sa(60) },
 
-    Cursor         { bg = white.da(10).de(10) },
+    Cursor         { fg = bg, bg = white.da(10).de(10), bold = true },
     MultiCursorCursor { bg = white.da(40).sa(40) },
     CursorLine     { bg = bg.li(5).de(10) },
     LineNr         { fg = bg.li(20).de(20) },
@@ -72,8 +71,8 @@ local theme = lush(function(injected_functions)
     NormalFloat    { bg = bg.da(40).de(10) },
     FloatBorder    { fg = fg.da(40).sa(10), bg = NormalFloat.bg },
     -- FloatBorder    { fg = Normal.bg, bg = NormalFloat.bg },
-    FloatTitle     { fg = FloatBorder.fg.li(50), bg = NormalFloat.bg },
-    StatusLine     { bg = bg.da(40).de(10), fg = fg.da(20).de(20) },
+    FloatTitle     { fg = FloatBorder.fg.li(60), bg = NormalFloat.bg, bold = true },
+    StatusLine     { bg = bg.li(10).de(10), fg = fg.da(20).de(20) },
     StatusLineNC   { StatusLine },
     Tabline        { fg = fg.da(30).de(30), bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
@@ -161,7 +160,15 @@ local theme = lush(function(injected_functions)
 
     fugitiveHunk { fg = fg.da(30) },
 
-    -- stylua: ignore end
+    MiniIconsGrey   { fg = white.da(20) },
+    MiniIconsYellow { fg = yellow },
+    MiniIconsOrange { fg = orange },
+    MiniIconsPurple { fg = purple },
+    MiniIconsCyan   { fg = cyan },
+    MiniIconsGreen  { fg = green },
+    MiniIconsAzure  { fg = blue.sa(50).ro(10) },
+    MiniIconsBlue   { fg = blue },
+    MiniIconsRed    { fg = red },
   }
 end)
 
