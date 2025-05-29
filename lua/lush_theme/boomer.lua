@@ -3,15 +3,16 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg = hsluv(245, 70, 7)
-local fg = hsluv(220, 20, 99)
+local bg = hsluv(260, 40, 4)
+-- local fg = hsluv(220, 10, 85)
+local fg = bg.li(80)
 local white = fg.li(80)
-local yellow = hsluv(65, 90, 86)
-local orange = hsluv(50, 80, 80)
-local purple = hsluv(275, 90, 75)
-local cyan = hsluv(140, 80, 90)
-local green = hsluv(110, 70, 90)
-local blue = hsluv(230, 90, 80)
+local yellow = hsluv(45, 75, 70)
+local orange = hsluv(5, 85, 70)
+local purple = hsluv(290, 95, 75)
+local cyan = hsluv(140, 75, 85)
+local green = hsluv(110, 80, 85)
+local blue = hsluv(230, 95, 75)
 local red = hsluv(5, 90, 60)
 
 local bg_light = hsluv(240, 30, 100)
@@ -51,6 +52,15 @@ local theme = lush(function(injected_functions)
     BlueFg         { fg = blue },
     RedFg          { fg = red },
 
+    WhiteBg        { fg = bg, bg = white, bold = true },
+    YellowBg       { fg = bg, bg = yellow, bold = true },
+    OrangeBg       { fg = bg, bg = orange, bold = true },
+    PurpleBg       { fg = bg, bg = purple, bold = true },
+    CyanBg         { fg = bg, bg = cyan, bold = true },
+    GreenBg        { fg = bg, bg = green, bold = true },
+    BlueBg         { fg = bg, bg = blue, bold = true },
+    RedBg          { fg = bg, bg = red, bold = true },
+
     RainbowDelimiterYellow       { fg = yellow.da(10).sa(60) },
     RainbowDelimiterOrange       { fg = orange.da(10).sa(60) },
     RainbowDelimiterViolet       { fg = purple.da(10).sa(60) },
@@ -59,29 +69,30 @@ local theme = lush(function(injected_functions)
     RainbowDelimiterBlue         { fg = blue.da(10).sa(60) },
     RainbowDelimiterRed          { fg = red.da(10).sa(60) },
 
-    Cursor         { fg = bg, bg = white.da(10).de(10), bold = true },
-    MultiCursorCursor { bg = white.da(40).sa(40) },
-    CursorLine     { bg = bg.li(5).de(10) },
-    LineNr         { fg = bg.li(20).de(20) },
-    CursorLineNr   { fg = Cursor.bg },
+    Cursor         { fg = bg, bg = yellow.li(5).sa(100), bold = true },
+    Visual         { bg = bg.li(20).de(20) },
+    MultiCursorCursor { bg = Visual.bg.li(20) },
+    MultiCursorVisual { bg = Visual.bg.da(20) },
+    CursorLine     { bg = bg.li(8).de(8) },
+    LineNr         { fg = bg.li(35).de(35) },
+    CursorLineNr   { fg = fg },
     NonText        { fg = bg.li(10).de(10) },
     -- CursorLineSign { bg = bg.li(5).de(10) },
-    Visual         { bg = bg.li(20).de(20) },
     Normal         { fg = fg, bg = bg },
-    NormalFloat    { bg = bg.da(40).de(10) },
-    FloatBorder    { fg = fg.da(40).sa(10), bg = NormalFloat.bg },
+    NormalFloat    { bg = bg.li(5) },
+    FloatBorder    { fg = NormalFloat.bg.li(30), bg = NormalFloat.bg },
     -- FloatBorder    { fg = Normal.bg, bg = NormalFloat.bg },
-    FloatTitle     { fg = FloatBorder.fg.li(60), bg = NormalFloat.bg, bold = true },
-    StatusLine     { bg = bg.li(10).de(10), fg = fg.da(20).de(20) },
-    StatusLineNC   { StatusLine },
+    FloatTitle     { fg = FloatBorder.fg.li(70), bg = NormalFloat.bg, bold = true },
+    StatusLine     { bg = bg.li(10), fg = fg.da(20).de(70) },
+    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg.da(20) },
     Tabline        { fg = fg.da(30).de(30), bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
-    WinSeparator   { fg = "NONE", bg = bg.da(40) },
+    WinSeparator   { fg = bg.li(5), bg = bg.li(5) },
     VertSplit      { WinSeparator },
     SignColumn     { bg = Normal.bg },
     EndOfBuffer    { fg = bg.li(10).de(10) },
     Pmenu          { bg = bg.li(10) },
-    PmenuSel       { bg = bg.li(25).sa(20) },
+    PmenuSel       { bg = bg.li(20).sa(0) },
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
     PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
     QuickFixLine   { PmenuSel },
@@ -92,9 +103,9 @@ local theme = lush(function(injected_functions)
     DiagnosticUnnecessary { fg = fg.da(40).de(40) },
 
     -- Git
-    DiffAdd        { fg = green, bg = green.da(50).de(50) },
-    DiffDelete     { fg = red, bg = red.da(50).de(50) },
-    DiffText       { fg = blue, bg = blue.da(50).de(50) },
+    DiffAdd        { fg = green, bg = green.da(60).de(60) },
+    DiffDelete     { fg = red, bg = red.da(60).de(60) },
+    DiffText       { fg = blue, bg = blue.da(60).de(60) },
     DiffChange     { fg = DiffText.fg, bg = bg.li(10) },
     diffAdded      { DiffAdd },
     diffRemoved    { DiffDelete },
@@ -104,25 +115,30 @@ local theme = lush(function(injected_functions)
     Removed        { fg = red },
 
     -- Syntax
-    Delimiter      { fg = fg.da(0).de(20) },
+    Delimiter      { fg = fg.da(0).de(0) },
     Punctuation    { fg = fg },
-    Keyword        { fg = red },
-    Operator       { Normal },
-    Special        { fg = white },
-    Constant       { fg = yellow },
+    Keyword        { fg = orange },
+    Operator       { Keyword },
+    Special        { fg = fg },
+    Constant       { fg = purple },
     Number         { Constant },
     PreProc        { Constant },
     String         { fg = green },
     Identifier     { fg = fg },
-    Function       { fg = orange },
+    Function       { fg = yellow },
     Statement      { Keyword },
-    Type           { fg = orange },
+    Type           { fg = blue },
     Tag            { fg = cyan },
     Directory      { fg = blue },
     Comment        { fg = fg.da(40) },
 
-    sym"@variable"          { fg = fg },
-    sym"@variable.member"   { fg = fg },
+    sym"@variable"              { fg = fg },
+    sym"@lsp.typemod.variable"  { fg = fg },
+
+    sym"@variable.member"       { fg = blue },
+    sym"@lsp.type.property"     { sym"@variable.member" },
+    sym"@lsp.type.property.lua" { sym"@variable" },
+
     sym"@lsp.type.modifier" { fg = red },
     sym"@keyword.modifier"  { fg = red },
     sym"@none"              { Delimiter },
@@ -131,15 +147,20 @@ local theme = lush(function(injected_functions)
     sym"@constructor.lua"   { Delimiter },
     sym"@type.builtin"      { Keyword },
     sym"@function"          { Function },
-    sym"@function.builtin"  { Function },
+    sym"@function.builtin"  { Keyword },
+    sym"@lsp.mod.defaultLibrary" { sym"@function.builtin" },
     sym"@character"         { fg = red },
     sym"@tag"               { Tag },
     sym"@tag.builtin"       { Tag },
+    sym"@lsp.type.type.svelte"  { Tag },
     sym"@tag.attribute"     { Delimiter },
     sym"@tag.delimiter"     { Delimiter },
     sym"@markup.heading"    {},
     sym"@markup.heading.markdown"  { fg = red },
     -- sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
+
+    sym"@lsp.mod.global"              { Constant },
+    sym"@lsp.typemod.variable.global" { sym"@lsp.mod.global" },
 
     -- sym"@keyword.coroutine.svelte"   { fg = red },
     -- sym"@keyword.conditional.svelte" { fg = red },
@@ -155,11 +176,14 @@ local theme = lush(function(injected_functions)
 
     TreesitterContext { CursorLine },
 
-    MiniCursorWord        { bg = CursorLine.bg },
-    MiniCursorWordCurrent { bg = CursorLine.bg.li(5).de(5) },
+    MiniCursorWord        { bg = Normal.bg.li(4) },
+    MiniCursorWordCurrent { bg = Normal.bg.li(8) },
 
     fugitiveHunk { fg = fg.da(30) },
 
+    Sneak { fg = purple, bold = true },
+
+    MiniPickPrompt  { fg = FloatTitle.fg, bg = FloatTitle.bg },
     MiniIconsGrey   { fg = white.da(20) },
     MiniIconsYellow { fg = yellow },
     MiniIconsOrange { fg = orange },
