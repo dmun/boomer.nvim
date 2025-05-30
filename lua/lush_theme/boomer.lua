@@ -5,14 +5,14 @@ local hsluv = lush.hsluv
 
 local bg = hsluv(260, 40, 4)
 -- local fg = hsluv(220, 10, 85)
-local fg = bg.li(80)
+local fg = bg.li(80).de(80)
 local white = fg.li(80)
 local yellow = hsluv(45, 75, 70)
 local orange = hsluv(5, 85, 70)
 local purple = hsluv(290, 95, 75)
-local cyan = hsluv(140, 75, 85)
+local cyan = hsluv(140, 75, 80)
 local green = hsluv(110, 80, 85)
-local blue = hsluv(230, 95, 75)
+local blue = hsluv(230, 70, 78)
 local red = hsluv(5, 90, 60)
 
 local bg_light = hsluv(240, 30, 100)
@@ -69,22 +69,22 @@ local theme = lush(function(injected_functions)
     RainbowDelimiterBlue         { fg = blue.da(10).sa(60) },
     RainbowDelimiterRed          { fg = red.da(10).sa(60) },
 
-    Cursor         { fg = bg, bg = yellow.li(5).sa(100), bold = true },
-    Visual         { bg = bg.li(20).de(20) },
-    MultiCursorCursor { bg = Visual.bg.li(20) },
-    MultiCursorVisual { bg = Visual.bg.da(20) },
-    CursorLine     { bg = bg.li(8).de(8) },
-    LineNr         { fg = bg.li(35).de(35) },
+    Cursor         { fg = blue.da(10), bg = white.li(5).sa(100), bold = true },
+    Visual         { bg = blue.da(60) },
+    MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
+    MultiCursorVisual { bg = Visual.bg.da(25) },
+    CursorLine     { bg = bg.li(5) },
+    LineNr         { fg = bg.li(40).de(60) },
     CursorLineNr   { fg = fg },
     NonText        { fg = bg.li(10).de(10) },
     -- CursorLineSign { bg = bg.li(5).de(10) },
     Normal         { fg = fg, bg = bg },
     NormalFloat    { bg = bg.li(5) },
-    FloatBorder    { fg = NormalFloat.bg.li(30), bg = NormalFloat.bg },
+    FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     -- FloatBorder    { fg = Normal.bg, bg = NormalFloat.bg },
-    FloatTitle     { fg = FloatBorder.fg.li(70), bg = NormalFloat.bg, bold = true },
-    StatusLine     { bg = bg.li(10), fg = fg.da(20).de(70) },
-    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg.da(20) },
+    FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
+    StatusLine     { bg = bg.li(10), fg = fg.da(30).de(40) },
+    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg.da(30) },
     Tabline        { fg = fg.da(30).de(30), bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
     WinSeparator   { fg = bg.li(5), bg = bg.li(5) },
@@ -92,10 +92,10 @@ local theme = lush(function(injected_functions)
     SignColumn     { bg = Normal.bg },
     EndOfBuffer    { fg = bg.li(10).de(10) },
     Pmenu          { bg = bg.li(10) },
-    PmenuSel       { bg = bg.li(20).sa(0) },
+    PmenuSel       { bg = bg.li(20).de(30) },
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
     PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
-    QuickFixLine   { PmenuSel },
+    QuickFixLine   { CursorLine },
     Folded         { bg = bg.li(10).de(10) },
 
     DiagnosticInfo { fg = blue.li(20).de(20) },
@@ -176,14 +176,16 @@ local theme = lush(function(injected_functions)
 
     TreesitterContext { CursorLine },
 
-    MiniCursorWord        { bg = Normal.bg.li(4) },
-    MiniCursorWordCurrent { bg = Normal.bg.li(8) },
+    MiniPickMatchCurrent  { PmenuSel },
+    MiniCursorWord        { bg = Normal.bg.li(5).de(10) },
+    -- MiniCursorWordCurrent { bg = Normal.bg.li(10).de(10) },
 
     fugitiveHunk { fg = fg.da(30) },
 
     Sneak { fg = purple, bold = true },
 
-    MiniPickPrompt  { fg = FloatTitle.fg, bg = FloatTitle.bg },
+    MiniPickPrompt { fg = FloatTitle.fg, bg = FloatTitle.bg },
+
     MiniIconsGrey   { fg = white.da(20) },
     MiniIconsYellow { fg = yellow },
     MiniIconsOrange { fg = orange },
@@ -193,6 +195,17 @@ local theme = lush(function(injected_functions)
     MiniIconsAzure  { fg = blue.sa(50).ro(10) },
     MiniIconsBlue   { fg = blue },
     MiniIconsRed    { fg = red },
+
+    -- MiniIconsGrey   { fg = fg.da(30) },
+    -- MiniIconsYellow { MiniIconsGrey },
+    -- MiniIconsOrange { MiniIconsGrey },
+    -- MiniIconsPurple { MiniIconsGrey },
+    -- MiniIconsCyan   { MiniIconsGrey },
+    -- MiniIconsGreen  { MiniIconsGrey },
+    -- MiniIconsAzure  { MiniIconsGrey },
+    -- MiniIconsBlue   { MiniIconsGrey },
+    -- MiniIconsRed    { MiniIconsGrey },
+
   }
 end)
 
