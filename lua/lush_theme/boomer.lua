@@ -98,8 +98,10 @@ local theme = lush(function(injected_functions)
     QuickFixLine   { CursorLine },
     Folded         { bg = bg.li(10).de(10) },
 
-    DiagnosticInfo { fg = blue.li(20).de(20) },
-    DiagnosticFloatingInfo { fg = blue.li(20).de(20), bg = NormalFloat.bg },
+    DiagnosticInfo         { fg = blue },
+    DiagnosticFloatingInfo { fg = DiagnosticInfo.fg, bg = NormalFloat.bg },
+    DiagnosticWarn         { fg = yellow },
+    DiagnosticFloatingWarn { fg = DiagnosticWarn.fg, bg = NormalFloat.bg },
     DiagnosticUnnecessary { fg = fg.da(40).de(40) },
 
     -- Git
@@ -192,7 +194,7 @@ local theme = lush(function(injected_functions)
     MiniIconsPurple { fg = purple },
     MiniIconsCyan   { fg = cyan },
     MiniIconsGreen  { fg = green },
-    MiniIconsAzure  { fg = blue.sa(50).ro(10) },
+    MiniIconsAzure  { fg = blue.sa(70).ro(20) },
     MiniIconsBlue   { fg = blue },
     MiniIconsRed    { fg = red },
 
