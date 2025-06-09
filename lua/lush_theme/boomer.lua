@@ -3,17 +3,17 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg = hsluv(260, 40, 4)
+local bg = hsluv(250, 0, 10)
 -- local fg = hsluv(220, 10, 85)
 local fg = bg.li(80).de(80)
 local white = fg.li(80)
-local yellow = hsluv(45, 75, 70)
-local orange = hsluv(5, 85, 70)
-local purple = hsluv(290, 95, 75)
-local cyan = hsluv(140, 75, 80)
-local green = hsluv(110, 80, 85)
-local blue = hsluv(230, 70, 78)
-local red = hsluv(5, 90, 60)
+local yellow = hsluv(55, 80, 85)
+local orange = hsluv(18, 95, 70)
+local purple = hsluv(270, 50, 75)
+local cyan = hsluv(170, 80, 85)
+local green = hsluv(100, 70, 80)
+local blue = hsluv(230, 70, 70)
+local red = hsluv(10, 60, 60)
 
 local bg_light = hsluv(240, 30, 100)
 local fg_light = hsluv(220, 20, 0)
@@ -26,18 +26,18 @@ local green_light = hsluv(100, 80, 45)
 local blue_light = hsluv(240, 90, 40)
 local red_light = hsluv(10, 90, 40)
 
-if light then
-  bg = bg_light
-  fg = fg_light
-  white = white_light
-  yellow = yellow_light
-  orange = orange_light
-  purple = purple_light
-  cyan = cyan_light
-  green = green_light
-  blue = blue_light
-  red = red_light
-end
+-- if light then
+--   bg = bg_light
+--   fg = fg_light
+--   white = white_light
+--   yellow = yellow_light
+--   orange = orange_light
+--   purple = purple_light
+--   cyan = cyan_light
+--   green = green_light
+--   blue = blue_light
+--   red = red_light
+-- end
 
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
@@ -74,25 +74,25 @@ local theme = lush(function(injected_functions)
     MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
     MultiCursorVisual { bg = Visual.bg.da(25) },
     CursorLine     { bg = bg.li(5) },
-    LineNr         { fg = bg.li(40).de(60) },
-    CursorLineNr   { fg = fg },
+    LineNr         { fg = bg.li(40).de(60), bg = bg.li(4) },
+    CursorLineNr   { fg = fg, bg = bg.li(4) },
+    SignColumn     { bg = bg.li(4) },
     NonText        { fg = bg.li(10).de(10) },
     -- CursorLineSign { bg = bg.li(5).de(10) },
     Normal         { fg = fg, bg = bg },
-    NormalFloat    { bg = bg.li(5) },
+    NormalFloat    { bg = bg.da(30) },
     FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     -- FloatBorder    { fg = Normal.bg, bg = NormalFloat.bg },
     FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
-    StatusLine     { bg = bg.li(10), fg = fg.da(30).de(40) },
+    StatusLine     { bg = bg.li(10), fg = fg.da(30) },
     StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg.da(30) },
     Tabline        { fg = fg.da(30).de(30), bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
-    WinSeparator   { fg = bg.li(5), bg = bg.li(5) },
+    WinSeparator   { fg = bg.da(40), bg = bg.da(40) },
     VertSplit      { WinSeparator },
-    SignColumn     { bg = Normal.bg },
     EndOfBuffer    { fg = bg.li(10).de(10) },
-    Pmenu          { bg = bg.li(10) },
-    PmenuSel       { bg = bg.li(20).de(30) },
+    Pmenu          { bg = bg.da(50) },
+    PmenuSel       { bg = bg.li(10) },
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
     PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
     QuickFixLine   { CursorLine },
@@ -119,18 +119,13 @@ local theme = lush(function(injected_functions)
     -- Syntax
     Delimiter      { fg = fg.da(0).de(0) },
     Punctuation    { fg = fg },
-    Keyword        { fg = orange },
+    Keyword        { fg = fg },
     Operator       { Keyword },
-    Special        { fg = fg },
-    Constant       { fg = purple },
-    Number         { Constant },
-    PreProc        { Constant },
-    String         { fg = green },
+    Special        { fg = orange },
+    PreProc        { Special },
     Identifier     { fg = fg },
-    Function       { fg = yellow },
     Statement      { Keyword },
-    Type           { fg = blue },
-    Tag            { fg = cyan },
+    Type           { Keyword },
     Directory      { fg = blue },
     Comment        { fg = fg.da(40) },
 
@@ -141,16 +136,58 @@ local theme = lush(function(injected_functions)
     sym"@lsp.type.property"     { sym"@variable.member" },
     sym"@lsp.type.property.lua" { sym"@variable" },
 
-    sym"@lsp.type.modifier" { fg = red },
-    sym"@keyword.modifier"  { fg = red },
+    Constant               { fg = yellow },
+    String                 { fg = green },
+    Number                 { Constant },
+    sym"@constant"         { Constant },
+    sym"@constant.builtin" { Constant },
+
+    -- Global                            { fg = purple },
+
+    Structural { fg = purple },
+    -- sym"@lsp.typemod.function.declaration"  { Structural },
+    Tag { Structural },
+    -- sym"@string.svelte" { Structural },
+    sym"@keyword"             { Structural },
+    -- sym"@keyword.function" { Structural },
+    sym"@lsp.mod.global"      { Structural },
+    sym"@lsp.typemod.variable.global" { Structural },
+    -- sym"@lsp.mod.defaultLibrary" { Structural },
+
+    Modifier                  { fg = cyan },
+    sym"@lsp.type.modifier"   { Modifier },
+    sym"@keyword.modifier"    { Modifier },
+
+    HiddenFlow                { fg = blue },
+    Function                  { HiddenFlow },
+    sym"@function.call"       { HiddenFlow },
+    sym"@lsp.type.method"     { HiddenFlow },
+    sym"@function.builtin"    { HiddenFlow },
+
+    ControlFlow               { fg = red },
+    sym"@keyword.repeat"      { ControlFlow },
+    sym"@keyword.conditional" { ControlFlow },
+    sym"@keyword.return"      { ControlFlow },
+    sym"@keyword.operator"    { ControlFlow },
+    -- sym"@operator" { ControlFlow },
+    -- sym"@punctuation.bracket"         { ControlFlow },
+
+    State          { fg = red },
+    sym"@lsp.mod.declaration" { fg = fg },
+    sym"@lsp.typemod.variable.declaration" { fg = fg },
+
+    sym"@string.escape" { Normal },
+
+    sym"@keyword.type"      { Type },
+    sym"@keyword.directive"   { Normal },
+    sym"@keyword.import"    { Normal },
+
     sym"@none"              { Delimiter },
     sym"@type"              { Type },
     sym"@constructor"       { Type },
     sym"@constructor.lua"   { Delimiter },
-    sym"@type.builtin"      { Keyword },
-    sym"@function"          { Function },
-    sym"@function.builtin"  { Keyword },
-    sym"@lsp.mod.defaultLibrary" { sym"@function.builtin" },
+    sym"@type.builtin"      { Normal },
+    -- sym"@lsp.mod.defaultLibrary" { sym"@function.builtin" },
     sym"@character"         { fg = red },
     sym"@tag"               { Tag },
     sym"@tag.builtin"       { Tag },
@@ -160,9 +197,6 @@ local theme = lush(function(injected_functions)
     sym"@markup.heading"    {},
     sym"@markup.heading.markdown"  { fg = red },
     -- sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
-
-    sym"@lsp.mod.global"              { Constant },
-    sym"@lsp.typemod.variable.global" { sym"@lsp.mod.global" },
 
     -- sym"@keyword.coroutine.svelte"   { fg = red },
     -- sym"@keyword.conditional.svelte" { fg = red },
@@ -178,13 +212,13 @@ local theme = lush(function(injected_functions)
 
     TreesitterContext { CursorLine },
 
-    MiniPickMatchCurrent  { PmenuSel },
+    -- MiniPickMatchCurrent  { PmenuSel },
     MiniCursorWord        { bg = Normal.bg.li(5).de(10) },
     -- MiniCursorWordCurrent { bg = Normal.bg.li(10).de(10) },
 
     fugitiveHunk { fg = fg.da(30) },
 
-    Sneak { fg = purple, bold = true },
+    Patrick { fg = red.sa(100).ro(-10), bold = false },
 
     MiniPickPrompt { fg = FloatTitle.fg, bg = FloatTitle.bg },
 
