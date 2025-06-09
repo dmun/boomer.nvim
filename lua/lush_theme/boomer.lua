@@ -9,7 +9,7 @@ local fg = bg.li(80).de(80)
 local white = fg.li(80)
 local yellow = hsluv(55, 80, 85)
 local orange = hsluv(18, 95, 70)
-local purple = hsluv(270, 50, 75)
+local purple = hsluv(310, 30, 65)
 local cyan = hsluv(170, 80, 85)
 local green = hsluv(100, 70, 80)
 local blue = hsluv(230, 70, 70)
@@ -152,7 +152,7 @@ local theme = lush(function(injected_functions)
     -- sym"@keyword.function" { Structural },
     sym"@lsp.mod.global"      { Structural },
     sym"@lsp.typemod.variable.global" { Structural },
-    -- sym"@lsp.mod.defaultLibrary" { Structural },
+    sym"@lsp.mod.defaultLibrary" { Structural },
 
     Modifier                  { fg = cyan },
     sym"@lsp.type.modifier"   { Modifier },
