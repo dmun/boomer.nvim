@@ -3,15 +3,15 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg = hsluv(250, 0, 10)
+local bg = hsluv(250, 0, 5)
 -- local fg = hsluv(220, 10, 85)
-local fg = bg.li(80).de(80)
+local fg = bg.li(90).de(80)
 local white = fg.li(80)
-local yellow = hsluv(55, 80, 85)
-local orange = hsluv(18, 95, 70)
-local purple = hsluv(310, 30, 65)
+local yellow = hsluv(65, 80, 85)
+local orange = hsluv(28, 95, 70)
+local purple = hsluv(280, 80, 60)
 local cyan = hsluv(170, 70, 80)
-local green = hsluv(100, 70, 80)
+local green = hsluv(100, 90, 80)
 local blue = hsluv(230, 70, 70)
 local red = hsluv(10, 60, 60)
 
@@ -26,18 +26,18 @@ local green_light = hsluv(100, 80, 45)
 local blue_light = hsluv(240, 90, 40)
 local red_light = hsluv(10, 90, 40)
 
--- if light then
---   bg = bg_light
---   fg = fg_light
---   white = white_light
---   yellow = yellow_light
---   orange = orange_light
---   purple = purple_light
---   cyan = cyan_light
---   green = green_light
---   blue = blue_light
---   red = red_light
--- end
+if light then
+  bg = bg_light
+  fg = fg_light
+  white = white_light
+  yellow = yellow_light
+  orange = orange_light
+  purple = purple_light
+  cyan = cyan_light
+  green = green_light
+  blue = blue_light
+  red = red_light
+end
 
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
@@ -73,25 +73,26 @@ local theme = lush(function(injected_functions)
     Visual         { bg = blue.da(60) },
     MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
     MultiCursorVisual { bg = Visual.bg.da(25) },
-    CursorLine     { bg = bg.li(5) },
-    LineNr         { fg = bg.li(40).de(60), bg = bg.li(4) },
-    CursorLineNr   { fg = fg, bg = bg.li(4) },
-    SignColumn     { bg = bg.li(4) },
-    NonText        { fg = bg.li(10).de(10) },
-    -- CursorLineSign { bg = bg.li(5).de(10) },
+    CursorLine     { bg = bg.li(15) },
+    SignColumn     { bg = bg.li(10) },
+    LineNr         { fg = bg.li(40).de(60), bg = bg.li(0) },
+    CursorLineNr   { fg = fg, bg = bg.li(0) },
+    NonText        { fg = fg.da(40) },
+    CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
-    NormalFloat    { bg = bg.da(30) },
+    NormalFloat    { bg = bg.li(10) },
     FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     -- FloatBorder    { fg = Normal.bg, bg = NormalFloat.bg },
     FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
-    StatusLine     { bg = bg.li(10), fg = fg.da(30) },
-    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg.da(30) },
-    Tabline        { fg = fg.da(30).de(30), bg = StatusLineNC.bg },
+    StatusLine     { bg = fg.da(0), fg = bg.li(30) },
+    -- StatusLineBold { bg = fg.da(20), fg = bg.da(30), bold = true },
+    StatusLineNC   { bg = StatusLine.bg.da(20), fg = StatusLine.fg.da(50) },
+    Tabline        { fg = bg.li(20).de(30), bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
-    WinSeparator   { fg = bg.da(40), bg = bg.da(40) },
+    WinSeparator   { fg = bg.li(40) },
     VertSplit      { WinSeparator },
-    EndOfBuffer    { fg = bg.li(10).de(10) },
-    Pmenu          { bg = bg.da(50) },
+    EndOfBuffer    { NonText },
+    Pmenu          { bg = bg.li(20) },
     PmenuSel       { bg = bg.li(10) },
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
     PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
@@ -105,9 +106,9 @@ local theme = lush(function(injected_functions)
     DiagnosticUnnecessary { fg = fg.da(40).de(40) },
 
     -- Git
-    DiffAdd        { fg = green, bg = green.da(60).de(60) },
-    DiffDelete     { fg = red, bg = red.da(60).de(60) },
-    DiffText       { fg = blue, bg = blue.da(60).de(60) },
+    DiffAdd        { fg = green, bg = green.da(70).de(60) },
+    DiffDelete     { fg = red, bg = red.da(70).de(60) },
+    DiffText       { fg = blue, bg = blue.da(70).de(60) },
     DiffChange     { fg = DiffText.fg, bg = bg.li(10) },
     diffAdded      { DiffAdd },
     diffRemoved    { DiffDelete },
@@ -127,7 +128,9 @@ local theme = lush(function(injected_functions)
     Statement      { Keyword },
     Type           { Keyword },
     Directory      { fg = blue },
-    Comment        { fg = fg.da(40) },
+    Comment        { fg = purple },
+
+    LspInlayHint { fg = Comment.fg, bg = bg.li(10) },
 
     sym"@variable"              { fg = fg },
     sym"@lsp.typemod.variable"  { fg = fg },
@@ -141,25 +144,27 @@ local theme = lush(function(injected_functions)
     Number                 { Constant },
     sym"@constant"         { Constant },
     sym"@constant.builtin" { Constant },
+    sym"@lsp.typemod.variable.global" { Constant },
 
     -- Global                            { fg = purple },
 
-    Structural { fg = purple },
+    Structural { fg = orange },
     -- sym"@lsp.typemod.function.declaration"  { Structural },
-    Tag { Structural },
+    Tag { fg = cyan },
     -- sym"@string.svelte" { Structural },
     sym"@keyword"             { Structural },
     -- sym"@keyword.function" { Structural },
-    sym"@lsp.mod.global"      { Structural },
-    sym"@lsp.typemod.variable.global" { Structural },
-    sym"@lsp.mod.defaultLibrary" { Structural },
-    sym"@keyword.import"      { Structural },
+
+    Builtin                   { fg = yellow.li(20).de(20) },
+    sym"@lsp.mod.global"      { Builtin },
+    sym"@lsp.mod.defaultLibrary" { Builtin },
+    sym"@keyword.import"      { Builtin },
 
     Modifier                  { fg = cyan },
     sym"@lsp.type.modifier"   { Modifier },
     sym"@keyword.modifier"    { Modifier },
 
-    HiddenFlow                { fg = blue },
+    HiddenFlow                { fg = yellow },
     Function                  { HiddenFlow },
     sym"@function.call"       { HiddenFlow },
     sym"@lsp.type.method"     { HiddenFlow },
@@ -170,12 +175,18 @@ local theme = lush(function(injected_functions)
     sym"@keyword.conditional" { ControlFlow },
     sym"@keyword.return"      { ControlFlow },
     sym"@keyword.operator"    { ControlFlow },
+
+    sym"@keyword.coroutine.svelte"   { ControlFlow },
+    sym"@keyword.conditional.svelte" { ControlFlow },
+    sym"@keyword.repeat.svelte"      { ControlFlow },
+    sym"@keyword.modifier.svelte"    { ControlFlow },
+
     -- sym"@operator" { ControlFlow },
     -- sym"@punctuation.bracket"         { ControlFlow },
 
     State          { fg = red },
-    sym"@lsp.mod.declaration" { fg = fg },
-    sym"@lsp.typemod.variable.declaration" { fg = fg },
+    -- sym"@lsp.mod.declaration" { fg = fg },
+    -- sym"@lsp.typemod.variable.declaration" { fg = fg },
 
     sym"@string.escape" { Normal },
 
@@ -199,10 +210,6 @@ local theme = lush(function(injected_functions)
     sym"@markup.heading.markdown"  { fg = red },
     -- sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
 
-    -- sym"@keyword.coroutine.svelte"   { fg = red },
-    -- sym"@keyword.conditional.svelte" { fg = red },
-    -- sym"@keyword.repeat.svelte"      { fg = red },
-
     -- Plugins
     CopilotSuggestion { fg = bg.li(50).de(50) },
 
@@ -221,7 +228,12 @@ local theme = lush(function(injected_functions)
 
     Patrick { fg = red.sa(100).ro(-10), bold = false },
 
-    MiniPickPrompt { fg = FloatTitle.fg, bg = FloatTitle.bg },
+    MiniPickNormal { Normal },
+    MiniPickBorder { StatusLineNC },
+    MiniPickBorderText { StatusLineNC },
+    MiniPickPrompt { fg = StatusLineNC.fg, bg = StatusLineNC.bg, bold = true },
+    MiniPickPromptPrefix { fg = bg.li(40), bg = MiniPickPrompt.bg, bold = true },
+    MiniPickPromptCaret { fg = Cursor.bg },
 
     MiniIconsGrey   { fg = white.da(20) },
     MiniIconsYellow { fg = yellow },
@@ -242,7 +254,6 @@ local theme = lush(function(injected_functions)
     -- MiniIconsAzure  { MiniIconsGrey },
     -- MiniIconsBlue   { MiniIconsGrey },
     -- MiniIconsRed    { MiniIconsGrey },
-
   }
 end)
 
