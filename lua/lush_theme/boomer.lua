@@ -3,28 +3,29 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg = hsluv(250, 0, 5)
--- local fg = hsluv(220, 10, 85)
-local fg = bg.li(90).de(80)
-local white = fg.li(80)
-local yellow = hsluv(65, 80, 85)
-local orange = hsluv(28, 95, 70)
-local purple = hsluv(280, 80, 60)
-local cyan = hsluv(170, 70, 80)
-local green = hsluv(100, 90, 80)
-local blue = hsluv(230, 70, 70)
-local red = hsluv(10, 60, 60)
+local bg     = hsluv(290, 40, 5)
+local fg     = bg.li(100).de(80)
+local white  = fg.li(80)
+local yellow = hsluv( 55,  90, 85)
+local beige  = hsluv( 65,  80, 93)
+local orange = hsluv( 18,  95, 75)
+local purple = hsluv(270,  100, 75)
+local pink   = hsluv(300,  90, 85)
+local cyan   = hsluv(170,  60, 85)
+local green  = hsluv(90,  90, 85)
+local blue   = hsluv(250,  70, 75)
+local red    = hsluv( 10,  80, 60)
 
-local bg_light = hsluv(240, 30, 100)
-local fg_light = hsluv(220, 20, 0)
-local white_light = fg.da(80)
-local yellow_light = hsluv(65, 90, 58)
-local orange_light = hsluv(40, 90, 45)
-local purple_light = hsluv(330, 50, 45)
-local cyan_light = hsluv(160, 70, 45)
-local green_light = hsluv(100, 80, 45)
-local blue_light = hsluv(240, 90, 40)
-local red_light = hsluv(10, 90, 40)
+local bg_light = fg
+local fg_light = bg
+local white_light = white.da(40)
+local yellow_light = yellow.da(40)
+local orange_light = orange.da(40)
+local purple_light = purple.da(40)
+local cyan_light = cyan.da(40)
+local green_light = green.da(40)
+local blue_light = blue.da(40)
+local red_light = red.da(40)
 
 if light then
   bg = bg_light
@@ -61,32 +62,26 @@ local theme = lush(function(injected_functions)
     BlueBg         { fg = bg, bg = blue, bold = true },
     RedBg          { fg = bg, bg = red, bold = true },
 
-    RainbowDelimiterYellow       { fg = yellow.da(10).sa(60) },
-    RainbowDelimiterOrange       { fg = orange.da(10).sa(60) },
-    RainbowDelimiterViolet       { fg = purple.da(10).sa(60) },
-    RainbowDelimiterCyan         { fg = cyan.da(10).sa(60) },
-    RainbowDelimiterGreen        { fg = green.da(10).sa(60) },
-    RainbowDelimiterBlue         { fg = blue.da(10).sa(60) },
-    RainbowDelimiterRed          { fg = red.da(10).sa(60) },
-
-    Cursor         { fg = blue.da(10), bg = white.li(5).sa(100), bold = true },
+    Cursor         { fg = blue.da(10), bg = white, bold = true },
     Visual         { bg = blue.da(60) },
     MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
     MultiCursorVisual { bg = Visual.bg.da(25) },
-    CursorLine     { bg = bg.li(15) },
+    CursorLine     { bg = bg.li(10) },
     SignColumn     { bg = bg.li(10) },
-    LineNr         { fg = bg.li(40).de(60), bg = bg.li(0) },
-    CursorLineNr   { fg = fg, bg = bg.li(0) },
-    NonText        { fg = fg.da(40) },
+    NonText        { fg = bg.li(40).de(60) },
+    LineNr         { fg = bg.li(50).de(80) },
+    CursorLineNr   { fg = fg },
     CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
-    NormalFloat    { bg = bg.li(10) },
-    FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
-    -- FloatBorder    { fg = Normal.bg, bg = NormalFloat.bg },
+    NormalFloat    { bg = bg.da(50) },
+    FloatBorder    { fg = NormalFloat.bg, bg = NormalFloat.bg },
+    -- FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
+    -- FloatBorder    { fg = Normal.fg },
     FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
-    StatusLine     { bg = fg.da(0), fg = bg.li(30) },
-    -- StatusLineBold { bg = fg.da(20), fg = bg.da(30), bold = true },
-    StatusLineNC   { bg = StatusLine.bg.da(20), fg = StatusLine.fg.da(50) },
+    StatusLine     { fg = fg.da(20).sa(40), bg = bg.li(30).de(30) },
+    StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
+    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
+    StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
     Tabline        { fg = bg.li(20).de(30), bg = StatusLineNC.bg },
     TablineSel     { bg = bg, fg = fg },
     WinSeparator   { fg = bg.li(40) },
@@ -118,120 +113,66 @@ local theme = lush(function(injected_functions)
     Removed        { fg = red },
 
     -- Syntax
-    Delimiter      { fg = fg.da(0).de(0) },
+    Delimiter      { fg = fg },
     Punctuation    { fg = fg },
+    Operator       { Punctuation },
     Keyword        { fg = fg },
-    Operator       { Keyword },
     Special        { fg = orange },
     PreProc        { Special },
     Identifier     { fg = fg },
     Statement      { Keyword },
     Type           { Keyword },
     Directory      { fg = blue },
-    Comment        { fg = purple },
+    Comment        { fg = fg.da(40) },
 
     LspInlayHint { fg = Comment.fg, bg = bg.li(10) },
 
     sym"@variable"              { fg = fg },
-    sym"@lsp.typemod.variable"  { fg = fg },
+    sym"@comment"               { Comment },
 
-    sym"@variable.member"       { fg = blue },
-    sym"@lsp.type.property"     { sym"@variable.member" },
-    sym"@lsp.type.property.lua" { sym"@variable" },
-
-    Constant               { fg = yellow },
-    String                 { fg = green },
-    Number                 { Constant },
+    Constant               { fg = purple },
     sym"@constant"         { Constant },
-    sym"@constant.builtin" { Constant },
-    sym"@lsp.typemod.variable.global" { Constant },
 
-    -- Global                            { fg = purple },
+    String                 { fg = green },
+    Number                 { String },
 
-    Structural { fg = orange },
-    -- sym"@lsp.typemod.function.declaration"  { Structural },
-    Tag { fg = cyan },
-    -- sym"@string.svelte" { Structural },
+    Namespace                 { fg = beige },
+    sym"@type.qmljs"          { Namespace },
+
+    Structural                { fg = orange },
+    Tag                       { Structural },
+    sym"@type"                { Structural },
     sym"@keyword"             { Structural },
-    -- sym"@keyword.function" { Structural },
+    sym"@keyword.type"        { Structural },
 
-    Builtin                   { fg = yellow.li(20).de(20) },
-    sym"@lsp.mod.global"      { Builtin },
-    sym"@lsp.mod.defaultLibrary" { Builtin },
+    Builtin                   { fg = purple },
     sym"@keyword.import"      { Builtin },
-
-    Modifier                  { fg = cyan },
-    sym"@lsp.type.modifier"   { Modifier },
-    sym"@keyword.modifier"    { Modifier },
+    sym"@function.builtin"    { Builtin },
+    sym"@module.builtin"      { Builtin },
+    sym"@constant.builtin"    { Builtin },
 
     HiddenFlow                { fg = yellow },
     Function                  { HiddenFlow },
     sym"@function.call"       { HiddenFlow },
-    sym"@lsp.type.method"     { HiddenFlow },
-    sym"@function.builtin"    { HiddenFlow },
 
     ControlFlow               { fg = red },
     sym"@keyword.repeat"      { ControlFlow },
     sym"@keyword.conditional" { ControlFlow },
     sym"@keyword.return"      { ControlFlow },
     sym"@keyword.operator"    { ControlFlow },
+    sym"@keyword.coroutine"   { ControlFlow },
+    sym"@operator.fennel"            { ControlFlow },
 
-    sym"@keyword.coroutine.svelte"   { ControlFlow },
-    sym"@keyword.conditional.svelte" { ControlFlow },
-    sym"@keyword.repeat.svelte"      { ControlFlow },
-    sym"@keyword.modifier.svelte"    { ControlFlow },
-
-    -- sym"@operator" { ControlFlow },
-    -- sym"@punctuation.bracket"         { ControlFlow },
-
-    State          { fg = red },
-    -- sym"@lsp.mod.declaration" { fg = fg },
-    -- sym"@lsp.typemod.variable.declaration" { fg = fg },
-
-    sym"@string.escape" { Normal },
-
-    sym"@keyword.type"      { Type },
-    sym"@keyword.directive"   { Normal },
-    sym"@keyword.import"    { Normal },
-
-    sym"@none"              { Delimiter },
-    sym"@type"              { Type },
-    sym"@constructor"       { Type },
-    sym"@constructor.lua"   { Delimiter },
-    sym"@type.builtin"      { Normal },
-    -- sym"@lsp.mod.defaultLibrary" { sym"@function.builtin" },
-    sym"@character"         { fg = red },
-    sym"@tag"               { Tag },
-    sym"@tag.builtin"       { Tag },
-    sym"@lsp.type.type.svelte"  { Tag },
-    sym"@tag.attribute"     { Delimiter },
-    sym"@tag.delimiter"     { Delimiter },
-    sym"@markup.heading"    {},
-    sym"@markup.heading.markdown"  { fg = red },
-    -- sym"@function.builtin"  { fg = Keyword.fg.ro(20).de(10) },
+    sym"@constructor"     { Type },
+    sym"@constructor.lua" { Delimiter },
 
     -- Plugins
-    CopilotSuggestion { fg = bg.li(50).de(50) },
+    Patrick      { fg = red.sa(100).ro(-10), bold = true },
 
-    BlinkCmpDocBorder           { FloatBorder },
-    BlinkCmpDocSeparatorBorder  { FloatBorder },
-    BlinkCmpSignatureHelp       { NormalFloat },
-    BlinkCmpSignatureHelpBorder { FloatBorder },
-
-    TreesitterContext { CursorLine },
-
-    -- MiniPickMatchCurrent  { PmenuSel },
-    MiniCursorWord        { bg = Normal.bg.li(5).de(10) },
-    -- MiniCursorWordCurrent { bg = Normal.bg.li(10).de(10) },
-
-    fugitiveHunk { fg = fg.da(30) },
-
-    Patrick { fg = red.sa(100).ro(-10), bold = false },
-
-    MiniPickNormal { Normal },
-    MiniPickBorder { StatusLineNC },
-    MiniPickBorderText { StatusLineNC },
-    MiniPickPrompt { fg = StatusLineNC.fg, bg = StatusLineNC.bg, bold = true },
+    MiniPickNormal { fg = fg, bg = bg },
+    MiniPickBorder { StatusLine },
+    MiniPickBorderText { StatusLine },
+    MiniPickPrompt { fg = StatusLine.fg, bg = StatusLine.bg, bold = true },
     MiniPickPromptPrefix { fg = bg.li(40), bg = MiniPickPrompt.bg, bold = true },
     MiniPickPromptCaret { fg = Cursor.bg },
 
@@ -244,16 +185,6 @@ local theme = lush(function(injected_functions)
     MiniIconsAzure  { fg = blue.sa(70).ro(20) },
     MiniIconsBlue   { fg = blue },
     MiniIconsRed    { fg = red },
-
-    -- MiniIconsGrey   { fg = fg.da(30) },
-    -- MiniIconsYellow { MiniIconsGrey },
-    -- MiniIconsOrange { MiniIconsGrey },
-    -- MiniIconsPurple { MiniIconsGrey },
-    -- MiniIconsCyan   { MiniIconsGrey },
-    -- MiniIconsGreen  { MiniIconsGrey },
-    -- MiniIconsAzure  { MiniIconsGrey },
-    -- MiniIconsBlue   { MiniIconsGrey },
-    -- MiniIconsRed    { MiniIconsGrey },
   }
 end)
 
