@@ -66,7 +66,7 @@ local theme = lush(function(injected_functions)
     Visual         { bg = blue.da(60) },
     MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
     MultiCursorVisual { bg = Visual.bg.da(25) },
-    CursorLine     { bg = bg.li(10) },
+    CursorLine     { bg = bg.li(10).ro(-15) },
     SignColumn     { bg = bg.li(10) },
     NonText        { fg = bg.li(40).de(60) },
     LineNr         { fg = bg.li(50).de(80) },
@@ -132,6 +132,9 @@ local theme = lush(function(injected_functions)
 
     Constant               { fg = purple },
     sym"@constant"         { Constant },
+
+    Property { fg = pink },
+    sym"@property" { Property },
 
     String                 { fg = green },
     Number                 { String },
