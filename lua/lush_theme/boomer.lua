@@ -3,17 +3,17 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(290, 40, 5)
+local bg     = hsluv(250, 20, 0)
 local fg     = bg.li(100).de(80)
 local white  = fg.li(80)
-local yellow = hsluv( 55,  90, 85)
+local yellow = hsluv( 55,  90, 80)
 local beige  = hsluv( 65,  80, 93)
-local orange = hsluv( 18,  95, 75)
-local purple = hsluv(270,  100, 75)
-local pink   = hsluv(300,  90, 85)
+local orange = hsluv( 18,  95, 65)
+local purple = hsluv(270,  100, 65)
+local pink   = hsluv(300,  90, 80)
 local cyan   = hsluv(170,  60, 85)
-local green  = hsluv(90,  90, 85)
-local blue   = hsluv(250,  70, 75)
+local green  = hsluv(90,  95, 80)
+local blue   = hsluv(250,  80, 70)
 local red    = hsluv( 10,  80, 60)
 
 local bg_light = fg
@@ -74,11 +74,11 @@ local theme = lush(function(injected_functions)
     CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
     NormalFloat    { bg = bg.da(50) },
-    FloatBorder    { fg = NormalFloat.bg, bg = NormalFloat.bg },
-    -- FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
+    -- FloatBorder    { fg = NormalFloat.bg, bg = NormalFloat.bg },
+    FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     -- FloatBorder    { fg = Normal.fg },
     FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
-    StatusLine     { fg = fg.da(20).sa(40), bg = bg.li(30).de(30) },
+    StatusLine     { fg = fg.da(0).sa(20), bg = bg.li(40).de(60) },
     StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
     StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
     StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
@@ -117,7 +117,7 @@ local theme = lush(function(injected_functions)
     Punctuation    { fg = fg },
     Operator       { Punctuation },
     Keyword        { fg = fg },
-    Special        { fg = orange },
+    Special        { fg = fg },
     PreProc        { Special },
     Identifier     { fg = fg },
     Statement      { Keyword },
@@ -130,11 +130,12 @@ local theme = lush(function(injected_functions)
     sym"@variable"              { fg = fg },
     sym"@comment"               { Comment },
 
-    Constant               { fg = purple },
+    Constant               { fg = fg },
     sym"@constant"         { Constant },
 
     Property { fg = pink },
-    sym"@property" { Property },
+    sym"@attribute"       { Property },
+    sym"@property.fennel" { Property },
 
     String                 { fg = green },
     Number                 { String },
@@ -142,23 +143,27 @@ local theme = lush(function(injected_functions)
     Namespace                 { fg = beige },
     sym"@type.qmljs"          { Namespace },
 
-    Structural                { fg = orange },
+    Structural                { fg = blue, bold = true },
     Tag                       { Structural },
-    sym"@type"                { Structural },
+    -- sym"@type"                { Structural },
     sym"@keyword"             { Structural },
     sym"@keyword.type"        { Structural },
 
-    Builtin                   { fg = purple },
+    Builtin                   { fg = fg, bold = false },
     sym"@keyword.import"      { Builtin },
     sym"@function.builtin"    { Builtin },
     sym"@module.builtin"      { Builtin },
     sym"@constant.builtin"    { Builtin },
+    sym"@function.macro"      { Builtin },
 
-    HiddenFlow                { fg = yellow },
+    sym"@function.call"       { Normal },
+    sym"@function.method.call"         { Normal },
+
+    HiddenFlow                { fg = cyan },
     Function                  { HiddenFlow },
-    sym"@function.call"       { HiddenFlow },
+    sym"@function"            { HiddenFlow },
 
-    ControlFlow               { fg = red },
+    ControlFlow               { fg = orange, bold = true },
     sym"@keyword.repeat"      { ControlFlow },
     sym"@keyword.conditional" { ControlFlow },
     sym"@keyword.return"      { ControlFlow },
