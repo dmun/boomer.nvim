@@ -3,7 +3,7 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(250, 20, 0)
+local bg     = hsluv(250, 10, 0)
 local fg     = bg.li(100).de(80)
 local white  = fg.li(80)
 local yellow = hsluv( 55,  90, 80)
@@ -67,7 +67,7 @@ local theme = lush(function(injected_functions)
     MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
     MultiCursorVisual { bg = Visual.bg.da(25) },
     CursorLine     { bg = bg.li(10).ro(-15) },
-    SignColumn     { bg = bg.li(10) },
+    SignColumn     { bg = bg },
     NonText        { fg = bg.li(40).de(60) },
     LineNr         { fg = bg.li(50).de(80) },
     CursorLineNr   { fg = fg },
@@ -82,8 +82,8 @@ local theme = lush(function(injected_functions)
     StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
     StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
     StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
-    Tabline        { fg = bg.li(20).de(30), bg = StatusLineNC.bg },
-    TablineSel     { bg = bg, fg = fg },
+    Tabline        { fg = fg.da(30) },
+    TablineSel     { bg = blue.da(70), bold = true },
     WinSeparator   { fg = bg.li(40) },
     VertSplit      { WinSeparator },
     EndOfBuffer    { NonText },
@@ -133,12 +133,12 @@ local theme = lush(function(injected_functions)
     Constant               { fg = fg },
     sym"@constant"         { Constant },
 
-    Property { fg = pink },
+    Property              { fg = fg },
     sym"@attribute"       { Property },
     sym"@property.fennel" { Property },
 
     String                 { fg = green },
-    Number                 { String },
+    Number                 { fg = pink },
 
     Namespace                 { fg = beige },
     sym"@type.qmljs"          { Namespace },
@@ -149,19 +149,18 @@ local theme = lush(function(injected_functions)
     sym"@keyword"             { Structural },
     sym"@keyword.type"        { Structural },
 
-    Builtin                   { fg = fg, bold = false },
+    Builtin                   { Normal },
     sym"@keyword.import"      { Builtin },
     sym"@function.builtin"    { Builtin },
     sym"@module.builtin"      { Builtin },
     sym"@constant.builtin"    { Builtin },
     sym"@function.macro"      { Builtin },
 
-    sym"@function.call"       { Normal },
-    sym"@function.method.call"         { Normal },
-
-    HiddenFlow                { fg = cyan },
-    Function                  { HiddenFlow },
-    sym"@function"            { HiddenFlow },
+    HiddenFlow                 { Normal },
+    Function                   { HiddenFlow },
+    sym"@function"             { HiddenFlow },
+    sym"@function.call"        { HiddenFlow },
+    sym"@function.method.call" { HiddenFlow },
 
     ControlFlow               { fg = orange, bold = true },
     sym"@keyword.repeat"      { ControlFlow },
