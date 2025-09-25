@@ -3,7 +3,7 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(250, 10, 8)
+local bg     = hsluv(250, 10, 12)
 local fg     = bg.li(100).de(80)
 local white  = fg.li(80)
 local yellow = hsluv( 55,  90, 80)
@@ -68,21 +68,22 @@ local theme = lush(function(injected_functions)
     MultiCursorVisual { bg = Visual.bg.da(25) },
     CursorLine     { bg = bg.li(10).ro(-15) },
     SignColumn     { bg = bg },
-    NonText        { fg = bg.li(40).de(60) },
+    NonText        { fg = bg.li(30).de(80) },
     LineNr         { fg = bg.li(50).de(80) },
     CursorLineNr   { fg = fg },
     CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
+    MsgArea        { bg = Normal.bg.da(20) },
     NormalFloat    { bg = bg.da(50) },
     -- FloatBorder    { fg = NormalFloat.bg, bg = NormalFloat.bg },
     FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     -- FloatBorder    { fg = Normal.fg },
     FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
-    StatusLine     { fg = fg.da(0).sa(20), bg = bg.li(40).de(60) },
+    StatusLine     { fg = fg.da(20).sa(20), bg = bg.da(40).de(40) },
     StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
     StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
     StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
-    Tabline        { fg = fg.da(30) },
+    Tabline        { fg = fg.da(30), bg = StatusLine.bg },
     TablineSel     { bg = blue.da(70), bold = true },
     WinSeparator   { fg = bg.li(40) },
     VertSplit      { WinSeparator },
@@ -92,7 +93,7 @@ local theme = lush(function(injected_functions)
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
     PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
     QuickFixLine   { CursorLine },
-    Folded         { bg = bg.li(10).de(10) },
+    Folded         { bg = bg },
 
     DiagnosticInfo         { fg = blue },
     DiagnosticFloatingInfo { fg = DiagnosticInfo.fg, bg = NormalFloat.bg },
@@ -117,7 +118,7 @@ local theme = lush(function(injected_functions)
     Punctuation    { fg = fg },
     Operator       { Punctuation },
     Keyword        { fg = fg },
-    Special        { fg = fg },
+    Special        { fg = pink },
     PreProc        { Special },
     Identifier     { fg = fg },
     Statement      { Keyword },
@@ -139,6 +140,7 @@ local theme = lush(function(injected_functions)
 
     String                 { fg = green },
     Number                 { fg = pink },
+    sym"@boolean"          { Number },
 
     Namespace                 { fg = beige },
     sym"@type.qmljs"          { Namespace },
@@ -192,6 +194,23 @@ local theme = lush(function(injected_functions)
     MiniIconsAzure  { fg = blue.sa(70).ro(20) },
     MiniIconsBlue   { fg = blue },
     MiniIconsRed    { fg = red },
+
+    FzfLuaNormal { MsgArea },
+    -- FzfLuaFzfCursorLine { fg = white, bg = PmenuSel.bg },
+
+    sym"@org.plan"            { Comment },
+    sym"@org.keyword.done" { NonText },
+    sym"@org.keyword.todo"    { fg = green, bold = true },
+    sym"@org.headline.level1" { fg = blue, bold = true },
+    sym"@org.headline.level2" { fg = pink.de(20).da(20), bold = true },
+    sym"@org.headline.level3" { fg = pink.de(40).da(0), bold = true },
+    sym"@org.headline.level4" { fg = blue.de(20).li(40), bold = true },
+    sym"@org.agenda.day"      { sym"@org.headline.level3" },
+    sym"@org.agenda.scheduled_past" { fg = yellow },
+    sym"@org.agenda.scheduled" { NonText },
+    sym"@org.agenda.deadline" { fg = orange, bold = true },
+    sym"@org.timestamp.active" { fg = yellow },
+    sym"@org.agenda.time_grid" { Comment },
   }
 end)
 
