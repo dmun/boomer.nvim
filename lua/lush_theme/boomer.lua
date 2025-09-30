@@ -3,17 +3,17 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(250, 10, 12)
-local fg     = bg.li(100).de(80)
+local bg     = hsluv(220, 40, 12)
+local fg     = bg.li(100).de(100)
 local white  = fg.li(80)
-local yellow = hsluv( 55,  90, 80)
+local yellow = hsluv( 55,  100, 83)
 local beige  = hsluv( 65,  80, 93)
 local orange = hsluv( 18,  95, 65)
-local purple = hsluv(270,  100, 65)
+local purple = hsluv(270,  100, 85)
 local pink   = hsluv(300,  90, 80)
 local cyan   = hsluv(170,  60, 85)
-local green  = hsluv(90,  95, 80)
-local blue   = hsluv(250,  80, 70)
+local green  = hsluv(90,  95, 88)
+local blue   = hsluv(250,  90, 77)
 local red    = hsluv( 10,  80, 60)
 
 local bg_light = fg
@@ -135,8 +135,9 @@ local theme = lush(function(injected_functions)
     Constant               { fg = fg },
     sym"@constant"         { Constant },
 
-    Property              { fg = fg },
+    Property              { fg = purple },
     sym"@attribute"       { Property },
+    sym"@tag.attribute"       { Property },
     sym"@property.fennel" { Property },
 
     String                 { fg = green },
@@ -146,20 +147,15 @@ local theme = lush(function(injected_functions)
     Namespace                 { fg = beige },
     sym"@type.qmljs"          { Namespace },
 
-    Structural                { fg = blue, bold = true },
+    Structural                { fg = blue, bold = false },
     Tag                       { Structural },
     -- sym"@type"                { Structural },
     sym"@keyword"             { Structural },
     sym"@keyword.type"        { Structural },
 
-    Builtin                   { Normal },
-    sym"@keyword.import"      { Builtin },
-    sym"@function.builtin"    { Builtin },
-    sym"@module.builtin"      { Builtin },
-    sym"@constant.builtin"    { Builtin },
-    sym"@function.macro"      { Builtin },
+    sym"@tag.delimiter" { fg = Normal.fg.da(20) },
 
-    HiddenFlow                 { Normal },
+    HiddenFlow                 { fg = yellow },
     Function                   { HiddenFlow },
     sym"@function"             { HiddenFlow },
     sym"@function.call"        { HiddenFlow },
@@ -212,6 +208,10 @@ local theme = lush(function(injected_functions)
     sym"@org.agenda.deadline" { fg = orange, bold = true },
     sym"@org.timestamp.active" { fg = yellow },
     sym"@org.agenda.time_grid" { Comment },
+
+    BlinkPairsOrange { fg = orange.sa(20).li(5) },
+    BlinkPairsPurple { fg = pink.sa(20) },
+    BlinkPairsBlue { fg = blue.sa(20).da(10) },
   }
 end)
 
