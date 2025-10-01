@@ -73,14 +73,14 @@ local theme = lush(function(injected_functions)
     CursorLineNr   { fg = fg },
     CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
-    MsgArea        { bg = Normal.bg.da(20) },
+    MsgArea        { bg = Normal.bg.da(25) },
     NormalFloat    { bg = bg.da(50) },
     -- FloatBorder    { fg = NormalFloat.bg, bg = NormalFloat.bg },
     -- FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     FloatBorder    { fg = Normal.fg },
     -- FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
     FloatTitle     { fg = FloatBorder.fg.li(80), bold = true },
-    StatusLine     { fg = fg.da(20).sa(20), bg = bg.da(40).de(40) },
+    StatusLine     { fg = fg.da(20).sa(20), bg = bg.da(50).de(40) },
     StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
     StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
     StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
@@ -212,6 +212,11 @@ local theme = lush(function(injected_functions)
     BlinkPairsOrange { fg = orange.sa(20).li(5) },
     BlinkPairsPurple { fg = pink.sa(20) },
     BlinkPairsBlue { fg = blue.sa(20).da(10) },
+
+    fzf1 { fg = purple },
+    fzf2 { StatusLine },
+    fzf3 { fg = red },
+    -- FzfLuaCursorline { StatusLine },
   }
 end)
 
