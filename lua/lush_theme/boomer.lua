@@ -62,6 +62,10 @@ local theme = lush(function(injected_functions)
     BlueBg         { fg = bg, bg = blue, bold = true },
     RedBg          { fg = bg, bg = red, bold = true },
 
+    --
+    -- Main
+    --
+
     Cursor         { fg = blue.da(10), bg = white, bold = true },
     Visual         { bg = blue.da(60) },
     MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
@@ -96,62 +100,71 @@ local theme = lush(function(injected_functions)
     QuickFixLine   { CursorLine },
     Folded         { bg = bg },
 
+    --
+    -- Lsp
+    --
+
     DiagnosticInfo         { fg = blue },
     DiagnosticFloatingInfo { fg = DiagnosticInfo.fg, bg = NormalFloat.bg },
     DiagnosticWarn         { fg = yellow },
     DiagnosticFloatingWarn { fg = DiagnosticWarn.fg, bg = NormalFloat.bg },
-    DiagnosticUnnecessary { fg = fg.da(40).de(40) },
+    DiagnosticUnnecessary  { fg = fg.da(40).de(40) },
 
+    --
     -- Git
-    DiffAdd        { fg = green, bg = green.da(70).de(60) },
-    DiffDelete     { fg = red, bg = red.da(70).de(60) },
-    DiffText       { fg = blue, bg = blue.da(70).de(60) },
-    DiffChange     { fg = DiffText.fg, bg = bg.li(10) },
-    diffAdded      { DiffAdd },
-    diffRemoved    { DiffDelete },
-    diffLine       { DiffText },
-    Added          { fg = green },
-    Changed        { fg = yellow },
-    Removed        { fg = red },
+    --
 
+    DiffAdd     { fg = green, bg = green.da(70).de(60) },
+    DiffDelete  { fg = red, bg = red.da(70).de(60) },
+    DiffText    { fg = blue, bg = blue.da(70).de(60) },
+    DiffChange  { fg = DiffText.fg, bg = bg.li(10) },
+    diffAdded   { DiffAdd },
+    diffRemoved { DiffDelete },
+    diffLine    { DiffText },
+    Added       { fg = green },
+    Changed     { fg = yellow },
+    Removed     { fg = red },
+
+    --
     -- Syntax
-    Delimiter      { fg = fg },
-    Punctuation    { fg = fg },
-    Operator       { Punctuation },
-    Keyword        { fg = fg },
-    Special        { fg = pink },
-    PreProc        { Special },
-    Identifier     { fg = fg },
-    Statement      { Keyword },
-    Type           { Keyword },
-    Directory      { fg = blue },
-    Comment        { fg = fg.da(40) },
+    --
+
+    Delimiter   { fg = fg },
+    Punctuation { fg = fg },
+    Operator    { Punctuation },
+    Keyword     { fg = fg },
+    Special     { fg = pink },
+    PreProc     { Special },
+    Identifier  { fg = fg },
+    Statement   { Keyword },
+    Type        { Keyword },
+    Directory   { fg = blue },
+    Comment     { fg = fg.da(40) },
 
     LspInlayHint { fg = Comment.fg, bg = bg.li(10) },
 
-    sym"@variable"              { fg = fg },
-    sym"@comment"               { Comment },
+    sym"@variable" { fg = fg },
+    sym"@comment"  { Comment },
 
-    Constant               { fg = fg },
-    sym"@constant"         { Constant },
+    Constant       { fg = fg },
+    sym"@constant" { Constant },
 
     Property              { fg = purple },
     sym"@attribute"       { Property },
-    sym"@tag.attribute"       { Property },
+    sym"@tag.attribute"   { Property },
     sym"@property.fennel" { Property },
 
-    String                 { fg = green },
-    Number                 { fg = pink },
-    sym"@boolean"          { Number },
+    String        { fg = green },
+    Number        { fg = pink },
+    sym"@boolean" { Number },
 
-    Namespace                 { fg = beige },
-    sym"@type.qmljs"          { Namespace },
+    Namespace        { fg = beige },
+    sym"@type.qmljs" { Namespace },
 
-    Structural                { fg = blue, bold = false },
-    Tag                       { Structural },
-    -- sym"@type"                { Structural },
-    sym"@keyword"             { Structural },
-    sym"@keyword.type"        { Structural },
+    Structural         { fg = blue, bold = false },
+    Tag                { Structural },
+    sym"@keyword"      { Structural },
+    sym"@keyword.type" { Structural },
 
     sym"@tag.delimiter" { fg = Normal.fg.da(20) },
 
@@ -167,21 +180,19 @@ local theme = lush(function(injected_functions)
     sym"@keyword.return"      { ControlFlow },
     sym"@keyword.operator"    { ControlFlow },
     sym"@keyword.coroutine"   { ControlFlow },
-    sym"@operator.fennel"            { ControlFlow },
+    sym"@operator.fennel"     { ControlFlow },
 
     sym"@constructor"     { Type },
     sym"@constructor.lua" { Delimiter },
 
+    --
     -- Plugins
-    Patrick      { fg = red.sa(100).ro(-10), bold = true },
+    --
 
-    MiniPickNormal { fg = fg, bg = bg },
-    MiniPickBorder { StatusLine },
-    MiniPickBorderText { StatusLine },
-    MiniPickPrompt { fg = StatusLine.fg, bg = StatusLine.bg, bold = true },
-    MiniPickPromptPrefix { fg = bg.li(40), bg = MiniPickPrompt.bg, bold = true },
-    MiniPickPromptCaret { fg = Cursor.bg },
+    -- sneak
+    Patrick { fg = red.sa(100).ro(-10), bold = true },
 
+    -- icons
     MiniIconsGrey   { fg = white.da(20) },
     MiniIconsYellow { fg = yellow },
     MiniIconsOrange { fg = orange },
@@ -192,31 +203,31 @@ local theme = lush(function(injected_functions)
     MiniIconsBlue   { fg = blue },
     MiniIconsRed    { fg = red },
 
+    -- fzf
     FzfLuaNormal { MsgArea },
-    -- FzfLuaFzfCursorLine { fg = white, bg = PmenuSel.bg },
+    fzf1         { fg = purple },
+    fzf2         { StatusLine },
+    fzf3         { fg = red },
 
-    sym"@org.plan"            { Comment },
-    sym"@org.keyword.done" { NonText },
-    sym"@org.keyword.todo"    { fg = green, bold = true },
-    sym"@org.headline.level1" { fg = blue, bold = true },
-    sym"@org.headline.level2" { fg = pink.de(20).da(20), bold = true },
-    sym"@org.headline.level3" { fg = pink.de(40).da(0), bold = true },
-    sym"@org.headline.level4" { fg = blue.de(20).li(40), bold = true },
-    sym"@org.agenda.day"      { sym"@org.headline.level3" },
+    -- org-mode
+    sym"@org.plan"                  { Comment },
+    sym"@org.keyword.done"          { NonText },
+    sym"@org.keyword.todo"          { fg = green, bold = true },
+    sym"@org.headline.level1"       { fg = blue, bold = true },
+    sym"@org.headline.level2"       { fg = pink.de(20).da(20), bold = true },
+    sym"@org.headline.level3"       { fg = pink.de(40).da(0), bold = true },
+    sym"@org.headline.level4"       { fg = blue.de(20).li(40), bold = true },
+    sym"@org.agenda.day"            { sym"@org.headline.level3" },
     sym"@org.agenda.scheduled_past" { fg = yellow },
-    sym"@org.agenda.scheduled" { NonText },
-    sym"@org.agenda.deadline" { fg = orange, bold = true },
-    sym"@org.timestamp.active" { fg = yellow },
-    sym"@org.agenda.time_grid" { Comment },
+    sym"@org.agenda.scheduled"      { NonText },
+    sym"@org.agenda.deadline"       { fg = orange, bold = true },
+    sym"@org.timestamp.active"      { fg = yellow },
+    sym"@org.agenda.time_grid"      { Comment },
 
+    -- blink
     BlinkPairsOrange { fg = orange.sa(20).li(5) },
     BlinkPairsPurple { fg = pink.sa(20) },
-    BlinkPairsBlue { fg = blue.sa(20).da(10) },
-
-    fzf1 { fg = purple },
-    fzf2 { StatusLine },
-    fzf3 { fg = red },
-    -- FzfLuaCursorline { StatusLine },
+    BlinkPairsBlue   { fg = blue.sa(20).da(10) },
   }
 end)
 
