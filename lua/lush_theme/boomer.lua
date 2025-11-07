@@ -3,18 +3,18 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(220, 40, 12)
+local bg     = hsluv(220, 0, 7)
 local fg     = bg.li(100).de(100)
 local white  = fg.li(80)
-local yellow = hsluv( 55,  100, 83)
-local beige  = hsluv( 65,  80, 93)
-local orange = hsluv( 18,  95, 65)
-local purple = hsluv(270,  100, 85)
-local pink   = hsluv(300,  90, 80)
-local cyan   = hsluv(170,  60, 85)
-local green  = hsluv(90,  95, 88)
-local blue   = hsluv(250,  90, 77)
-local red    = hsluv( 10,  80, 60)
+local yellow = hsluv( 55,  100, 77)
+local beige  = hsluv( 65,  80, 90)
+local orange = hsluv( 18,  95, 60)
+local purple = hsluv(270,  100, 75)
+local pink   = hsluv(300,  90, 70)
+local cyan   = hsluv(170,  60, 80)
+local green  = hsluv(90,  95, 80)
+local blue   = hsluv(250,  90, 68)
+local red    = hsluv( 10,  80, 50)
 
 local bg_light = fg
 local fg_light = bg
@@ -77,20 +77,17 @@ local theme = lush(function(injected_functions)
     CursorLineNr   { fg = fg },
     CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
-    MsgArea        { bg = Normal.bg.da(25) },
     NormalFloat    { bg = bg.da(50) },
     -- FloatBorder    { fg = NormalFloat.bg, bg = NormalFloat.bg },
     -- FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     FloatBorder    { fg = Normal.fg },
     -- FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
     FloatTitle     { fg = FloatBorder.fg.li(80), bold = true },
-    StatusLine     { fg = fg.da(20).sa(20), bg = bg.da(50).de(40) },
-    StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
-    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
-    StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
-    Tabline        { fg = fg.da(30), bg = StatusLine.bg },
-    TablineSel     { bg = blue.da(70), bold = true },
-    WinSeparator   { fg = bg.li(40) },
+    StatusLine     { bg = fg.da(20).de(20), fg = bg.da(50).de(40), bold = true },
+    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg.li(30) },
+    Tabline        { fg = StatusLineNC.fg, bg = StatusLine.bg },
+    TablineSel     { fg = fg, bg = Normal.bg, bold = true },
+    WinSeparator   { fg = bg.li(40), bg = bg.li(40) },
     VertSplit      { WinSeparator },
     EndOfBuffer    { NonText },
     Pmenu          { bg = bg.li(20) },
@@ -204,7 +201,6 @@ local theme = lush(function(injected_functions)
     MiniIconsRed    { fg = red },
 
     -- fzf
-    FzfLuaNormal { MsgArea },
     fzf1         { fg = purple },
     fzf2         { StatusLine },
     fzf3         { fg = red },
