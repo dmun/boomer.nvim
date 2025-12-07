@@ -3,17 +3,17 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(220, 0, 7)
+local bg     = hsluv(220, 0, 0)
 local fg     = bg.li(100).de(100)
 local white  = fg.li(80)
-local yellow = hsluv( 55,  100, 77)
-local beige  = hsluv( 65,  80, 90)
+local yellow = hsluv( 55,  100, 81)
+local beige  = hsluv( 65,  80, 93)
 local orange = hsluv( 18,  95, 60)
-local purple = hsluv(270,  100, 75)
+local purple = hsluv(270,  100, 70)
 local pink   = hsluv(300,  90, 70)
-local cyan   = hsluv(170,  60, 80)
-local green  = hsluv(90,  95, 80)
-local blue   = hsluv(250,  90, 68)
+local cyan   = hsluv(170,  70, 80)
+local green  = hsluv(90,  100, 80)
+local blue   = hsluv(250,  90, 70)
 local red    = hsluv( 10,  80, 50)
 
 local bg_light = fg
@@ -83,11 +83,13 @@ local theme = lush(function(injected_functions)
     FloatBorder    { fg = Normal.fg },
     -- FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
     FloatTitle     { fg = FloatBorder.fg.li(80), bold = true },
-    StatusLine     { bg = fg.da(20).de(20), fg = bg.da(50).de(40), bold = true },
-    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg.li(30) },
-    Tabline        { fg = StatusLineNC.fg, bg = StatusLine.bg },
-    TablineSel     { fg = fg, bg = Normal.bg, bold = true },
-    WinSeparator   { fg = bg.li(40), bg = bg.li(40) },
+    StatusLine     { fg = bg.da(20).sa(20), bg = fg.da(20).de(40), bold = true },
+    StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
+    StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
+    StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
+    Tabline        { fg = fg.da(30), bg = StatusLine.bg },
+    TablineSel     { bg = blue.da(70), bold = true },
+    WinSeparator   { fg = bg.li(40) },
     VertSplit      { WinSeparator },
     EndOfBuffer    { NonText },
     Pmenu          { bg = bg.li(20) },
@@ -186,9 +188,6 @@ local theme = lush(function(injected_functions)
     -- Plugins
     --
 
-    -- sneak
-    Patrick { fg = red.sa(100).ro(-10), bold = true },
-
     -- icons
     MiniIconsGrey   { fg = white.da(20) },
     MiniIconsYellow { fg = yellow },
@@ -201,24 +200,11 @@ local theme = lush(function(injected_functions)
     MiniIconsRed    { fg = red },
 
     -- fzf
-    fzf1         { fg = purple },
+    FzfHeaderText { StatusLine },
+    FzfLuaTitle  { fg = green.da(50).sa(50) },
+    fzf1         { StatusLine },
     fzf2         { StatusLine },
-    fzf3         { fg = red },
-
-    -- org-mode
-    sym"@org.plan"                  { Comment },
-    sym"@org.keyword.done"          { NonText },
-    sym"@org.keyword.todo"          { fg = green, bold = true },
-    sym"@org.headline.level1"       { fg = blue, bold = true },
-    sym"@org.headline.level2"       { fg = pink.de(20).da(20), bold = true },
-    sym"@org.headline.level3"       { fg = pink.de(40).da(0), bold = true },
-    sym"@org.headline.level4"       { fg = blue.de(20).li(40), bold = true },
-    sym"@org.agenda.day"            { sym"@org.headline.level3" },
-    sym"@org.agenda.scheduled_past" { fg = yellow },
-    sym"@org.agenda.scheduled"      { NonText },
-    sym"@org.agenda.deadline"       { fg = orange, bold = true },
-    sym"@org.timestamp.active"      { fg = yellow },
-    sym"@org.agenda.time_grid"      { Comment },
+    fzf3         { StatusLine },
 
     -- blink
     BlinkPairsOrange { fg = orange.sa(20).li(5) },
