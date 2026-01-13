@@ -3,8 +3,8 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(220, 0, 0)
-local fg     = bg.li(100).de(100)
+local bg     = hsluv(250, 30, 5)
+local fg     = bg.li(90).de(20)
 local white  = fg.li(80)
 local yellow = hsluv( 55,  100, 81)
 local beige  = hsluv( 65,  80, 93)
@@ -66,14 +66,14 @@ local theme = lush(function(injected_functions)
     -- Main
     --
 
-    Cursor         { fg = blue.da(10), bg = white, bold = true },
+    Cursor         { fg = bg, bg = blue.sa(100).li(10) },
     Visual         { bg = blue.da(60) },
     MultiCursorCursor { bg = Visual.bg.li(30).de(20) },
     MultiCursorVisual { bg = Visual.bg.da(25) },
     CursorLine     { bg = bg.li(10).ro(-15) },
     SignColumn     { bg = bg },
-    NonText        { fg = bg.li(30).de(80) },
-    LineNr         { fg = bg.li(50).de(80) },
+    NonText        { fg = bg.li(30).de(50) },
+    LineNr         { fg = bg.li(40).de(50) },
     CursorLineNr   { fg = fg },
     CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
@@ -83,7 +83,7 @@ local theme = lush(function(injected_functions)
     FloatBorder    { fg = Normal.fg },
     -- FloatTitle     { fg = FloatBorder.fg.li(80), bg = NormalFloat.bg, bold = true },
     FloatTitle     { fg = FloatBorder.fg.li(80), bold = true },
-    StatusLine     { fg = bg.da(20).sa(20), bg = fg.da(20).de(40), bold = true },
+    StatusLine     { fg = bg.da(0).sa(20), bg = fg.da(20).de(60), bold = true },
     StatusLineBold { bg = StatusLine.bg, fg = StatusLine.fg, bold = true },
     StatusLineNC   { bg = StatusLine.bg, fg = StatusLine.fg },
     StatusLineHidden { fg = StatusLine.bg, bg = StatusLine.bg },
