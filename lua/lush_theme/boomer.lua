@@ -92,8 +92,10 @@ local theme = lush(function(injected_functions)
     WinSeparator   { fg = bg.li(40) },
     VertSplit      { WinSeparator },
     EndOfBuffer    { NonText },
-    Pmenu          { bg = bg.li(20) },
-    PmenuSel       { bg = bg.li(10) },
+    Pmenu          { bg = bg.li(15) },
+    PmenuMatch     { fg = blue },
+    PmenuMatchSel  { fg = blue },
+    PmenuSel       { bg = bg.li(25).de(20) },
     PmenuSbar      { bg = Pmenu.bg.da(20).sa(20) },
     PmenuThumb     { bg = Pmenu.bg.li(20).de(20) },
     QuickFixLine   { CursorLine },
@@ -113,9 +115,9 @@ local theme = lush(function(injected_functions)
     -- Git
     --
 
-    DiffAdd     { fg = green, bg = green.da(70).de(60) },
-    DiffDelete  { fg = red, bg = red.da(70).de(60) },
-    DiffText    { fg = blue, bg = blue.da(70).de(60) },
+    DiffAdd     { fg = green, bg = green.da(60).de(40) },
+    DiffDelete  { fg = red, bg = red.da(60).de(40) },
+    DiffText    { fg = blue, bg = blue.da(60).de(40) },
     DiffChange  { fg = DiffText.fg, bg = bg.li(10) },
     diffAdded   { DiffAdd },
     diffRemoved { DiffDelete },
