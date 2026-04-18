@@ -3,7 +3,7 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(270, 10, 0)
+local bg     = hsluv(260, 40, 6)
 local fg     = bg.li(90).de(20)
 local white  = fg.li(80)
 local yellow = hsluv( 55,  100, 81)
@@ -78,6 +78,7 @@ local theme = lush(function(injected_functions)
     CursorLineSign { fg = fg },
     Normal         { fg = fg, bg = bg },
     NormalFloat    { bg = bg.da(50) },
+    MsgArea        { bg = bg.da(50) },
     -- FloatBorder    { fg = NormalFloat.bg, bg = NormalFloat.bg },
     -- FloatBorder    { fg = fg.da(50).sa(10), bg = NormalFloat.bg },
     FloatBorder    { fg = Normal.fg },
