@@ -3,7 +3,7 @@ local light = false
 local lush = require("lush")
 local hsluv = lush.hsluv
 
-local bg     = hsluv(260, 40, 6)
+local bg     = hsluv(260, 10, 0)
 local fg     = bg.li(90).de(20)
 local white  = fg.li(80)
 local yellow = hsluv( 55,  100, 81)
